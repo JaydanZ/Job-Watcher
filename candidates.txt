@@ -1,0 +1,660 @@
+# Company names for the finder (find_companies.py) to try on each job platform.
+# One per line. Add any company you like; it's only added to companies.json if it
+# currently has postings in your area. You can also add exact boards like lever:roserocket
+
+
+# --- Exact job boards already known ---
+greenhouse:ada
+greenhouse:properly
+greenhouse:joinforage
+greenhouse:strava
+lever:agnostiq
+lever:roserocket
+lever:super-com
+lever:himama
+lever:deliverect
+lever:emburse
+lever:includedhealth
+lever:rippling
+lever:paytm
+workable:floatcard
+workable:tribalscale
+
+# --- Kitchener / Waterloo / Cambridge / Guelph ---
+Arctic Wolf
+D2L
+Vidyard
+ApplyBoard
+Axonify
+Auvik
+Miovision
+Clearpath Robotics
+OTTO Motors
+Bonfire
+Dejero
+Sortable
+TextNow
+Igloo Software
+Communitech
+Intellijoint Surgical
+Kinaxis
+Descartes Systems
+OpenText
+Sonrai Security
+Eleven-x
+Ratehub
+Spark Power
+Voices.com
+Bridgit
+Avidbots
+Mappedin
+Northern Digital
+Thalmic
+ScribbleLive
+Bluedot
+Kik
+MedStack
+Shoplogix
+Plurilock
+Ruby Labs
+Swift Medical
+Nuvation
+Jobber
+Rhyzome Networks
+Myant
+Canadian Digital Service
+Ontario Digital Service
+SkipTheDishes
+Equitable Life
+Definity
+Gore Mutual
+The Co-operators
+Sun Life
+Manulife
+ATS Automation
+Rockwell Automation
+Eclipse Automation
+Linamar
+Skyline Group
+Sleeman
+Toyota Canada
+Waterloo Region
+Conestoga College
+Stantec
+Sciencetech
+
+# --- Toronto / GTA / Mississauga tech ---
+Clearco
+KOHO
+Borrowell
+Nesto
+Neo Financial
+Ritual
+Swap Commerce
+Ownr
+Plooto
+Flybits
+Q4 Inc
+Intelex
+Geotab
+SOTI
+Rangle
+Myplanet
+Konrad
+Thoughtworks
+Publicis Sapient
+Slalom
+Points
+Plusgrade
+Achievers
+Questrade
+Wealthica
+Hockeystack
+Fable
+Humi
+Employment Hero
+Dialogue
+PolicyAdvisor
+Felix Health
+Maple
+Knew Health
+Juniper
+Trulioo
+Coconut Software
+Tealbook
+Paymentus
+Moneris
+Interac
+Payments Canada
+Nuvei
+Lightspeed
+Hopper
+Snowflake
+Okta
+Atlassian
+Unity
+Twitch
+Microsoft
+Electronic Arts
+Ubisoft
+Ubisoft Toronto
+Rockstar Games
+Behaviour Interactive
+Uken Games
+Bight Games
+Snap
+Etsy
+Uber
+Zynga
+Kijiji
+Adevinta
+Rogers
+Bell
+TELUS
+Freedom Mobile
+Shopify
+Ceridian
+Dayforce
+Wave Financial
+Fiix
+FreshBooks
+Loopio
+Vena
+Benevity
+Dapper Labs
+Tenstorrent
+Untether AI
+Xanadu
+Ideogram
+Layer 6
+Vector Institute
+BenchSci
+Deep Genomics
+Cyclica
+Phenomic AI
+Hubba
+Ecobee
+Wattpad
+Uberflip
+Ada Support
+Nulogy
+Thinkific
+Clio
+Hootsuite
+Dye & Durham
+Trend Micro
+eSentire
+Absolute Software
+Mitel
+Coveo
+Workleap
+Unbounce
+Procurify
+Tulip
+Flipp
+theScore
+PENN Entertainment
+Rivalry
+DraftKings
+FanDuel
+Bet365
+BetMGM
+Points International
+League
+DoorDash
+Index Exchange
+Properly
+Super.com
+Rose Rocket
+HiMama
+Paytm Labs
+Opencare
+Sensibill
+Fintech Galaxy
+Mogo
+Mylo
+Wagepoint
+Zafin
+Mojio
+Zapier
+Automattic
+DigitalOcean
+
+# --- From the Toronto tech scene list ---
+500px
+Ada
+Adracare Inc
+Agnostiq
+Ample Organics
+Archon
+Arctiq
+Avail
+BioConnect
+BioSymetrics
+BlueCat
+CampBrain
+CareGuide
+Chisel AI
+Cluep
+Clutch
+CoHealth
+Coinsquare
+Connected
+CrowdRiff
+Data Sentinel
+Dot Health
+Drop
+eBlock
+EnergyX
+Evenset
+EventMobi
+FinanceIT
+Float
+Forma AI
+Format
+FundThrough
+Gene42
+GoBolt
+Hubdoc
+Indoc Research
+Influitive
+Integrate.ai
+Kira Systems
+Konrad Group
+Leap Tools
+Loblaw Digital
+Loop Financial
+Muse
+NorthOne
+Nudge
+Nymi
+Nymity
+Oanda
+OneClass
+Orium
+PathCore
+PathFactory
+Platterz
+PolicyMe
+Primate Labs
+Prodigy
+ProteinQure
+Quartermaster
+Rangle.io
+Relay
+Resemble AI
+Riskfuel
+Setter
+SickKids Research
+Soroc
+Strategic Mapping
+Structura Biotechnology
+Super
+Taplytics
+Ten Thousand Coffees
+Think Research
+ThinkData Works
+Together Software
+Top Hat
+TouchBistro
+TradeRev
+TribalScale
+Tulip Retail
+Tucows
+TWG
+Unata
+Universe
+Vena Solutions
+VR Vision
+Wave
+WGames
+Yuhu
+AbacusNext
+Amdocs
+Assurance
+Autodesk
+Bolt
+Cadre
+Cerebras
+CircleCI
+Cockroach Labs
+Cohesity
+Consensys
+Coursera
+Cover
+Deliverect
+eBay
+Emburse
+Fathom Health
+Gatik
+Gravitational
+Groq
+Iversoft
+Kindred
+Lever
+LogDNA
+Magic Leap
+Mark43
+Nextdoor
+Nomis Solutions
+PagerDuty
+PAX Labs
+People.ai
+Proofpoint
+Red Hat
+Rippling
+ROSS Intelligence
+Scribd
+Seequent
+Sentiance
+Sentry
+Shopkick
+Slack
+Snap, Inc.
+SoundHound
+SpankChain
+Square
+TELUS Digital
+TrustArc
+Turbonomic
+Veeva
+Verint
+Veeva Systems
+Vision Critical
+VTS
+Wish
+WorkMarket
+Yelp
+Apollo
+AssemblyAI
+Auth0
+Big Bear Software
+Close.io
+Commit
+Confluent
+Customer.io
+Datadog
+Elastic
+Exodus Intelligence
+Fastly
+Fathom
+Forage
+GitHub
+HashiCorp
+Included Health
+IOHK
+Matrix.org
+Mesosphere
+NS1
+Nylas
+OpenCraft
+PacerPro
+Polymath
+Postscript
+Protocol Labs
+QuestDB
+Rivalry.gg
+Stack Overflow
+Stellar
+Strava
+Unsplash
+UpCodes
+Uplight
+VEXXHOST
+
+# --- Smaller companies, agencies and consultancies ---
+Normative
+Litera
+Ample Labs
+Pocket Health
+Cohere Health
+Alayacare
+Dialpad
+Maropost
+Lumina
+Rubikloud
+Shakepay
+WonderFi
+Bitbuy
+Ledn
+Hut 8
+Fight Camp
+Felix
+Breather
+Spring Financial
+Float Card
+Venn
+Loop Card
+Sampler
+Nanoleaf
+Peloton
+Arctic Wolf Networks
+Kinduct
+Cognitiv
+Applied Brain Research
+Ecopia AI
+Mindbridge
+Signal 1
+Fable Tech Labs
+Swyft
+Trexity
+Freightera
+Fleet Complete
+Platform Science
+Haven Technologies
+Copilot AI
+Ownable
+CarbonCure
+Mosaic Manufacturing
+Rubik
+Jane App
+Sprout Social
+Hiive
+Valence
+Boast AI
+Pathway Communications
+Medeloop
+Juno College
+Lighthouse Labs
+BrainStation
+Andela
+Toptal
+Turing
+Crossover
+Remote
+Deel
+Oyster
+Shopify Plus Partners
+Pivot Design Group
+Massive Interactive
+Critical Mass
+Jam3
+Media.Monks
+Cossette
+Taxi Studio
+Rethink
+Huge
+Bnotions
+Xtreme Labs
+Endava
+Globant
+EPAM
+Nagarro
+CGI
+Softchoice
+Converge Technology
+Compugen
+Ricoh Canada
+Moneris Solutions
+Ceridian HCM
+
+# --- Non-tech employers with developer teams (retail, finance, insurance, media, health, public sector) ---
+Aritzia
+Canada Goose
+Indigo Books
+Roots
+Lululemon
+Hudson's Bay
+Simons
+MEC
+Sport Chek
+Canadian Tire
+Loblaw
+Shoppers Drug Mart
+Metro Inc
+Sobeys
+Walmart Canada
+Costco
+IKEA
+Best Buy Canada
+Staples Canada
+Sephora
+Pet Valu
+Dollarama
+Tim Hortons
+Restaurant Brands International
+Recipe Unlimited
+McCain Foods
+Maple Leaf Foods
+Kraft Heinz
+PepsiCo
+Coca-Cola
+Labatt
+Molson Coors
+Unilever
+Procter & Gamble
+L'Oreal
+Bosch
+Siemens
+Visa
+Mastercard
+American Express
+PayPal
+Intuit
+ADP
+Thomson Reuters
+Wolters Kluwer
+LexisNexis
+Deloitte
+KPMG
+PwC
+EY
+BDO
+MNP
+Grant Thornton
+Capgemini
+Cognizant
+Infosys
+TCS
+Wipro
+HCLTech
+Canada Life
+Intact
+Aviva
+RSA
+Desjardins
+Definity Financial
+Economical Insurance
+Allstate Canada
+State Farm
+TD
+RBC
+BMO
+Scotiabank
+CIBC
+National Bank
+EQ Bank
+Tangerine
+Simplii
+Laurentian Bank
+Meridian Credit Union
+Alterna
+OMERS
+CPP Investments
+Ontario Teachers Pension Plan
+HOOPP
+Brookfield
+Fairfax
+Great-West Lifeco
+iA Financial
+Equifax
+TransUnion
+Moody's
+S&P Global
+Morningstar
+Bloomberg
+Corus Entertainment
+Globe and Mail
+Toronto Star
+Torstar
+CBC
+Bell Media
+Rogers Sports & Media
+MLSE
+Cineplex
+Live Nation
+Ticketmaster
+Air Canada
+WestJet
+Porter Airlines
+Metrolinx
+TTC
+Purolator
+Canada Post
+FedEx
+UPS
+Uber Freight
+Flexport
+Hydro One
+OPG
+Toronto Hydro
+Enbridge
+Alectra
+Bruce Power
+SickKids
+University Health Network
+Sunnybrook
+Unity Health
+Trillium Health
+Hamilton Health Sciences
+Rexall
+Medtronic
+Philips
+GE Healthcare
+Johnson & Johnson
+Roche
+Pfizer
+AstraZeneca
+Sanofi
+Bayer
+Apotex
+Telus Health
+WELL Health
+Dialogue Health
+CarePlus
+Magna
+Celestica
+Martinrea
+Ford Canada
+General Motors
+Honda Canada
+Stellantis
+Bombardier
+Thales
+CAE
+Lockheed Martin
+L3Harris
+MDA Space
+Ontario Power Generation
+City of Toronto
+University of Toronto
+University of Waterloo
+Wilfrid Laurier University
+University of Guelph
+York University
+Toronto Metropolitan University
+Sheridan College
+Humber College
+Seneca
+George Brown College
+Mohawk College

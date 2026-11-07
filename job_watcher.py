@@ -143,7 +143,95 @@ def fetch_ashby(slug):
     return jobs
 
 
-FETCHERS = {"greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch_ashby}
+COUNTRY_NAMES = {"ca": "Canada", "us": "United States", "gb": "United Kingdom", "uk": "United Kingdom"}
+
+
+def join_location(*parts):
+    return ", ".join(p for p in parts if p)
+
+
+def fetch_workable(slug):
+    # Workable only gives a posting *date* (no time), so freshness falls back to
+    # "not seen on the previous run" (see main()).
+    data = get_json(f"https://apply.workable.com/api/v1/widget/accounts/{slug}")
+    company = data.get("name") or pretty_name(slug)
+    jobs = []
+    for j in data.get("jobs", []):
+        locs = [join_location(l.get("city"), l.get("region"), l.get("country"))
+                for l in (j.get("locations") or []) if not l.get("hidden")]
+        if not locs:
+            locs = [join_location(j.get("city"), j.get("state"), j.get("country"))]
+        loc = " | ".join(l for l in locs if l)
+        if j.get("telecommuting") and "remote" not in loc.lower():
+            loc = f"{loc} (Remote)".strip()
+        jobs.append({
+            "id": j.get("shortcode") or j.get("code") or j.get("url"),
+            "source": "workable", "slug": slug,
+            "company": company,
+            "title": j.get("title", ""),
+            "location": loc,
+            "url": j.get("url") or j.get("shortlink") or "",
+            "posted_at": None,
+            "posted_date": j.get("published_on") or j.get("created_at"),
+            "description": None,
+        })
+    return jobs
+
+
+def fetch_workable_description(slug, job_id):
+    data = get_json(f"https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true")
+    for j in data.get("jobs", []):
+        if job_id in (j.get("shortcode"), j.get("code"), j.get("url")):
+            return html_to_text(" ".join(filter(None, [
+                j.get("description"), j.get("requirements"), j.get("benefits")])))
+    return ""
+
+
+def fetch_smartrecruiters(slug):
+    jobs, offset = [], 0
+    while True:
+        data = get_json(f"https://api.smartrecruiters.com/v1/companies/{slug}/postings"
+                        f"?limit=100&offset={offset}")
+        page = data.get("content", [])
+        for j in page:
+            l = j.get("location") or {}
+            country = COUNTRY_NAMES.get((l.get("country") or "").lower(), (l.get("country") or "").upper())
+            loc = l.get("fullLocation") or join_location(l.get("city"), l.get("region"), country)
+            if country and country.lower() not in loc.lower():
+                loc = join_location(loc, country)
+            if l.get("remote") and "remote" not in loc.lower():
+                loc = f"{loc} (Remote)".strip()
+            jobs.append({
+                "id": str(j["id"]),
+                "source": "smartrecruiters", "slug": slug,
+                "company": (j.get("company") or {}).get("name") or pretty_name(slug),
+                "title": j.get("name", ""),
+                "location": loc,
+                "url": f"https://jobs.smartrecruiters.com/{slug}/{j['id']}",
+                "posted_at": parse_time(j.get("releasedDate")),
+                "description": None,
+            })
+        offset += 100
+        if not page or offset >= data.get("totalFound", 0) or offset >= 2000:
+            break
+    return jobs
+
+
+def fetch_smartrecruiters_description(slug, job_id):
+    data = get_json(f"https://api.smartrecruiters.com/v1/companies/{slug}/postings/{job_id}")
+    sections = ((data.get("jobAd") or {}).get("sections") or {}).values()
+    return html_to_text(" ".join(s.get("text", "") for s in sections if isinstance(s, dict)))
+
+
+FETCHERS = {
+    "greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch_ashby,
+    "workable": fetch_workable, "smartrecruiters": fetch_smartrecruiters,
+}
+DESCRIPTION_FETCHERS = {
+    "greenhouse": fetch_greenhouse_description,
+    "workable": fetch_workable_description,
+    "smartrecruiters": fetch_smartrecruiters_description,
+}
 
 
 # ---------------------------------------------------------------- title filter
@@ -369,9 +457,9 @@ def check_resume_fit(job, cfg, skills):
     """Returns (passes, reason). Fills job['skills_matched'] and job['years_required']."""
     rm = cfg.get("resume_match", {})
     desc = job.get("description")
-    if desc is None and job["source"] == "greenhouse":
+    if desc is None and job["source"] in DESCRIPTION_FETCHERS:
         try:
-            desc = fetch_greenhouse_description(job["slug"], job["id"])
+            desc = DESCRIPTION_FETCHERS[job["source"]](job["slug"], job["id"])
         except Exception as e:
             print(f"  ! couldn't fetch description for {job['url']}: {e}")
     if not desc:
@@ -429,8 +517,12 @@ def main():
             if job["posted_at"]:
                 fresh = (now - job["posted_at"]).total_seconds() / 60 <= max_age_min
             else:
-                # No timestamp: being unseen since the last run is the freshness signal.
+                # No timestamp: being unseen since the last run is the freshness signal,
+                # as long as any posting date given isn't older than yesterday.
                 fresh = not first_time
+                d = str(job.get("posted_date") or "")[:10]
+                if fresh and re.fullmatch(r"\d{4}-\d{2}-\d{2}", d):
+                    fresh = (now.date() - datetime.fromisoformat(d).date()).days <= 1
             if fresh:
                 candidates.append(job)
         seen[key] = current  # only keep jobs that are still listed
