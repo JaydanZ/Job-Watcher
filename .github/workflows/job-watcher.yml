@@ -4,7 +4,7 @@ on:
   schedule:
     # Every 15 minutes. GitHub may start scheduled runs a few minutes late.
     # Private repo? Use "*/30 * * * *" to stay within the free monthly minutes.
-    - cron: "*/15 * * * *"
+    - cron: "7,22,37,52 * * * *"
   workflow_dispatch: # adds a "Run workflow" button for manual runs
 
 permissions:
