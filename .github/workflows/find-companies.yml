@@ -1,0 +1,34 @@
+name: Find companies
+
+# Run this manually (Actions -> Find companies -> Run workflow) whenever you add
+# names to candidates.txt. It adds companies hiring in your area to companies.json.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: job-watcher # never runs at the same time as the watcher
+  cancel-in-progress: false
+
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Search job platforms
+        run: python3 find_companies.py
+
+      - name: Save results
+        run: |
+          git config user.name "job-watcher"
+          git config user.email "job-watcher@users.noreply.github.com"
+          git add companies.json finder_report.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Add companies found by the finder"
+            git pull --rebase --quiet
+            git push
+          fi
