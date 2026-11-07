@@ -1,0 +1,38 @@
+name: Job watcher
+
+on:
+  schedule:
+    # Every 15 minutes. GitHub may start scheduled runs a few minutes late.
+    # Private repo? Use "*/30 * * * *" to stay within the free monthly minutes.
+    - cron: "*/15 * * * *"
+  workflow_dispatch: # adds a "Run workflow" button for manual runs
+
+permissions:
+  contents: write # lets the job save seen.json and jobs_found.csv back to the repo
+
+concurrency:
+  group: job-watcher
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for new jobs
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python3 job_watcher.py
+
+      - name: Save state
+        run: |
+          git config user.name "job-watcher"
+          git config user.email "job-watcher@users.noreply.github.com"
+          for f in seen.json jobs_found.csv; do [ -f "$f" ] && git add "$f"; done
+          if ! git diff --cached --quiet; then
+            git commit -m "Update job watcher state"
+            git pull --rebase --quiet
+            git push
+          fi

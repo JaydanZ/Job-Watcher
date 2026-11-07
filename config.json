@@ -1,0 +1,13 @@
+{
+  "max_age_minutes": 60,
+
+  "title_focus_words": ["software", "full stack", "front end", "back end"],
+  "title_role_words": ["engineer", "engineering", "developer", "development", "dev"],
+  "title_aliases": ["swe", "sde"],
+  "title_exclude_words": ["manager", "director", "head of", "vp", "vice president", "recruiter", "recruiting", "advocate", "sales"],
+
+  "locations": [],
+
+  "ntfy_server": "https://ntfy.sh",
+  "max_notifications_per_run": 10
+}
