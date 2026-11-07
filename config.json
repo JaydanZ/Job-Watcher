@@ -1,12 +1,70 @@
 {
   "max_age_minutes": 60,
 
-  "title_focus_words": ["software", "full stack", "front end", "back end"],
+  "title_focus_words": ["software", "full stack", "front end", "back end", "web", "react", "python", "django", "node", "typescript", "javascript"],
   "title_role_words": ["engineer", "engineering", "developer", "development", "dev"],
   "title_aliases": ["swe", "sde"],
-  "title_exclude_words": ["manager", "director", "head of", "vp", "vice president", "recruiter", "recruiting", "advocate", "sales"],
+  "title_exclude_words": [
+    "senior", "sr", "staff", "principal", "lead", "architect", "distinguished",
+    "intern", "internship", "co op", "coop",
+    "manager", "director", "head of", "vp", "vice president",
+    "recruiter", "recruiting", "advocate", "sales", "support", "test", "qa",
+    "embedded", "firmware", "ios", "android"
+  ],
 
-  "locations": [],
+  "location_filter": {
+    "enabled": true,
+    "cities": ["toronto", "kitchener", "waterloo", "cambridge", "guelph", "mississauga", "greater toronto", "gta"],
+    "province_names": ["ontario"],
+    "province_codes": ["ON"],
+    "remote_regions": ["canada", "north america"],
+    "include_remote_with_no_country": false,
+    "not_my_area_markers": ["ma", "massachusetts", "uk", "united kingdom", "england", "ia", "iowa", "belgium", "us", "usa", "united states"]
+  },
+
+  "resume_match": {
+    "min_skills_matched": 3,
+    "strong_match_skills": 6,
+    "max_years_required": 4
+  },
+
+  "my_skills": {
+    "JavaScript": ["javascript", "js", "es6"],
+    "TypeScript": ["typescript", "ts"],
+    "Python": ["python"],
+    "SQL": ["sql"],
+    "C#": ["c#"],
+    "HTML/CSS": ["html", "css", "html5", "css3"],
+    "Sass": ["sass", "scss"],
+    "React": ["react", "react.js", "reactjs"],
+    "Next.js": ["next.js", "nextjs"],
+    "Redux": ["redux", "redux toolkit"],
+    "Tailwind": ["tailwind", "tailwindcss", "tailwind css"],
+    "Webpack": ["webpack"],
+    "Jest / RTL": ["jest", "react testing library"],
+    "Node.js": ["node", "node.js", "nodejs"],
+    "Express": ["express.js", "expressjs"],
+    "Django": ["django", "django rest framework", "drf"],
+    "FastAPI": ["fastapi"],
+    "PyTest": ["pytest"],
+    "REST APIs": ["restful", "rest api", "rest apis"],
+    "WebSockets": ["websocket", "websockets"],
+    "Redis": ["redis"],
+    "PostgreSQL": ["postgres", "postgresql"],
+    "MySQL": ["mysql"],
+    "MongoDB": ["mongodb", "mongo"],
+    "Firebase": ["firebase"],
+    "AWS": ["aws", "amazon web services", "s3", "sqs", "lambda"],
+    "Google Cloud": ["gcp", "google cloud"],
+    "Terraform": ["terraform"],
+    "Docker": ["docker", "containers", "containerization"],
+    "Kubernetes": ["kubernetes", "k8s"],
+    "CI/CD": ["ci/cd", "ci cd", "github actions", "continuous integration"],
+    "Datadog": ["datadog"],
+    "LLMs / AI": ["llm", "llms", "langchain", "openai", "generative ai", "genai"],
+    "Agile": ["agile", "scrum"],
+    "Figma": ["figma"]
+  },
 
   "ntfy_server": "https://ntfy.sh",
   "max_notifications_per_run": 10

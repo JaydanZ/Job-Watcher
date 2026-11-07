@@ -1,14 +1,17 @@
 {
   "greenhouse": [
-    "airbnb", "anthropic", "stripe", "databricks", "vercel", "figma", "discord",
-    "robinhood", "cloudflare", "dropbox", "reddit", "instacart", "pinterest",
-    "lyft", "gitlab", "coinbase", "affirm", "brex", "asana", "twilio",
-    "mongodb", "datadog", "faire"
+    "faire", "stackadapt", "leagueinc", "doordashcanada", "autotradercanada", "opentable",
+    "justworks", "carta", "lush", "bitgo", "tailscale", "openphone", "grafanalabs",
+    "stripe", "instacart", "pinterest", "robinhood", "reddit", "lyft", "coinbase",
+    "affirm", "dropbox", "databricks", "mongodb", "airbnb", "twilio", "gitlab",
+    "mozilla", "calendly"
   ],
   "lever": [
-    "spotify", "palantir", "zoox"
+    "pointclickcare", "magnetforensics", "waabi", "shyftlabs", "smiledigitalhealth",
+    "air-tek", "spotify"
   ],
   "ashby": [
-    "openai", "notion", "ramp", "linear", "cohere", "replit"
+    "wealthsimple", "cohere", "1password", "maxima", "reacher", "bree", "solstice",
+    "directive", "terminal", "linear"
   ]
 }
