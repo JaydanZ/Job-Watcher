@@ -1,15 +1,19 @@
 {
-  "max_age_minutes": 120,
+  "max_age_minutes": 60,
 
-  "title_focus_words": ["software", "full stack", "front end", "back end", "web", "react", "python", "django", "node", "typescript", "javascript"],
+  "title_focus_words": ["software", "full stack", "front end", "back end", "web", "react", "python", "django", "node", "typescript", "javascript", "forward deployed"],
   "title_role_words": ["engineer", "engineering", "developer", "development", "dev"],
-  "title_aliases": ["swe", "sde"],
+  "title_aliases": ["swe", "sde", "fde"],
   "title_exclude_words": [
     "senior", "sr", "staff", "principal", "lead", "architect", "distinguished",
     "intern", "internship", "co op", "coop",
     "manager", "director", "head of", "vp", "vice president",
     "recruiter", "recruiting", "advocate", "sales", "support", "test", "qa",
-    "embedded", "firmware", "ios", "android"
+    "embedded", "firmware", "ios", "android",
+    "gpu", "ml", "machine learning", "inference", "kernel", "kernels", "compiler",
+    "sre", "site reliability", "devops", "infrastructure", "observability", "cluster",
+    "network", "networking", "dataplane", "distributed", "security", "robotics",
+    "data engineering", "data infrastructure", "data platform", "data lakehouse", "data developer"
   ],
 
   "location_filter": {
@@ -29,6 +33,9 @@
     "min_skills_matched": 2,
     "min_skills_matched_junior": 1,
     "junior_title_words": ["junior", "jr", "entry level", "entry", "new grad", "graduate", "early career", "associate", "intermediate", "i", "ii", "level 1", "level 2"],
+    "core_skills": ["JavaScript", "TypeScript", "Python", "React", "Next.js", "Redux", "Tailwind", "HTML/CSS", "Node.js", "Express", "Django", "FastAPI"],
+    "min_core_skills": 1,
+    "entry_level_title_words": ["junior", "jr", "entry level", "entry", "new grad", "graduate", "early career", "associate"],
     "strong_match_skills": 6,
     "max_years_required": 4
   },

@@ -499,6 +499,15 @@ def check_resume_fit(job, cfg, skills):
         need = rm.get("min_skills_matched_junior", need)
     if len(job["skills_matched"]) < need:
         return False, f"only {len(job['skills_matched'])} skill matches"
+    # Must mention at least one of your core stack skills (general skills like AWS or
+    # Docker alone don't qualify). Entry-level titles are exempt: their postings often
+    # don't name a stack at all.
+    core = set(rm.get("core_skills", []))
+    min_core = rm.get("min_core_skills", 0)
+    entry = word_regex(rm.get("entry_level_title_words", []))
+    if core and min_core and not (entry and entry.search(normalize(job["title"]))):
+        if sum(1 for s in job["skills_matched"] if s in core) < min_core:
+            return False, "no core stack skills mentioned"
     return True, ""
 
 
