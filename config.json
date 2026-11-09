@@ -1,5 +1,5 @@
 {
-  "max_age_minutes": 60,
+  "max_age_minutes": 120,
 
   "title_focus_words": ["software", "full stack", "front end", "back end", "web", "react", "python", "django", "node", "typescript", "javascript"],
   "title_role_words": ["engineer", "engineering", "developer", "development", "dev"],
@@ -26,7 +26,7 @@
   "max_posting_age_days": 180,
 
   "resume_match": {
-    "min_skills_matched": 3,
+    "min_skills_matched": 2,
     "min_skills_matched_junior": 1,
     "junior_title_words": ["junior", "jr", "entry level", "entry", "new grad", "graduate", "early career", "associate", "intermediate", "i", "ii", "level 1", "level 2"],
     "strong_match_skills": 6,
