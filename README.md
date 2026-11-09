@@ -50,9 +50,16 @@ If your repo is private, change the schedule in
   labelled "Ontario" or ", ON" also matches. `remote_regions` covers "Remote - Canada"
   style postings. Set `include_remote_with_no_country` to `true` to also get postings
   that just say "Remote" (these are often US-only). `not_my_area_markers` stops
-  look-alikes such as Cambridge, MA or Waterloo, Iowa.
+  look-alikes such as Cambridge, MA, Waterloo, Iowa, or Ontario, California.
+  `ambiguous_cities` (Cambridge) only count when the posting also mentions
+  Ontario, Canada, or another of your cities.
+- `max_posting_age_days`: the open jobs list hides postings older than this
+  (default 180). These are usually evergreen or forgotten listings.
 - `resume_match`:
   - `min_skills_matched`: how many of your skills a posting must mention (default 3).
+  - `min_skills_matched_junior`: the lower minimum for titles containing a
+    `junior_title_words` word, like Junior, Entry Level, New Grad, Intermediate,
+    or II (default 1).
   - `max_years_required`: skip postings asking for more years than this (default 4).
   - `strong_match_skills`: skill count that earns a ⭐ alert (default 6).
 - `my_skills`: the skills from your resume, each with the spellings to look for.
