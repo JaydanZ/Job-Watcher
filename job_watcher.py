@@ -63,7 +63,8 @@ def html_to_text(raw):
 
 
 def pretty_name(slug):
-    return re.sub(r"[-_]+", " ", slug).title()
+    from urllib.parse import unquote
+    return re.sub(r"[-_]+", " ", unquote(slug)).title()
 
 
 # ---------------------------------------------------------------- fetching
@@ -178,8 +179,14 @@ def fetch_workable(slug):
     return jobs
 
 
+_workable_details = {}  # one detailed fetch per company per run
+
+
 def fetch_workable_description(slug, job_id):
-    data = get_json(f"https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true")
+    if slug not in _workable_details:
+        _workable_details[slug] = get_json(
+            f"https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true")
+    data = _workable_details[slug]
     for j in data.get("jobs", []):
         if job_id in (j.get("shortcode"), j.get("code"), j.get("url")):
             return html_to_text(" ".join(filter(None, [
@@ -494,7 +501,7 @@ def main():
     now = datetime.now(timezone.utc)
 
     tasks = [(src, slug) for src, slugs in companies.items() if src in FETCHERS for slug in slugs]
-    with ThreadPoolExecutor(max_workers=8) as pool:
+    with ThreadPoolExecutor(max_workers=16) as pool:
         results = list(pool.map(lambda t: fetch_one(*t), tasks))
 
     candidates, failures = [], []

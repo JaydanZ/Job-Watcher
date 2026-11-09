@@ -11,7 +11,9 @@ Usage:
 
 Lines in candidates.txt can be:
     Company Name         -> several likely slugs are tried on every platform
-    lever:roserocket     -> tests exactly that board
+    lever:roserocket     -> tests exactly that board; added if it has jobs in your area now
+    lever:roserocket!    -> tests exactly that board; added whenever it exists, even with
+                            nothing in your area today (for companies known to hire here)
     # comment            -> ignored
 """
 import argparse
@@ -51,9 +53,10 @@ def read_candidates():
         line = raw.split("#", 1)[0].strip()
         if not line:
             continue
-        m = re.fullmatch(r"(\w+):([\w.\-]+)", line)
+        m = re.fullmatch(r"(\w+):([\w.%\-]+)(!?)", line)
         if m and m.group(1) in jw.FETCHERS:
-            tasks.append((line, m.group(1), m.group(2)))
+            label = raw.split("#", 1)[1].strip() if "#" in raw else line
+            tasks.append((label + m.group(3), m.group(1), m.group(2)))
             continue
         for slug in slug_variants(line):
             for platform in jw.FETCHERS:
@@ -94,7 +97,7 @@ def main():
     tasks = [t for t in read_candidates() if (t[1], t[2].lower()) not in already]
     tasks = list(dict.fromkeys(tasks))
     print(f"Trying {len(tasks)} name/platform combinations...")
-    with ThreadPoolExecutor(max_workers=12) as pool:
+    with ThreadPoolExecutor(max_workers=24) as pool:
         found = [r for r in pool.map(lambda t: probe(t, titles, places), tasks) if r]
 
     # Keep the best board per (name, platform), then drop boards found via two names.
@@ -105,16 +108,20 @@ def main():
             best[key] = r
     unique = {}
     for r in best.values():
-        unique.setdefault((r["platform"], r["slug"].lower()), r)
+        key = (r["platform"], r["slug"].lower())
+        if key not in unique or (r["label"].endswith("!") and not unique[key]["label"].endswith("!")):
+            unique[key] = r
     results = sorted(unique.values(), key=lambda r: (r["dev"], r["local"]), reverse=True)
 
-    added = [r for r in results if r["local"] >= args.min_local_jobs]
-    not_local = [r for r in results if r["local"] < args.min_local_jobs]
+    keep = lambda r: r["local"] >= args.min_local_jobs or r["label"].endswith("!")
+    added = [r for r in results if keep(r)]
+    not_local = [r for r in results if not keep(r)]
 
     lines = [
         "# Company finder report", "",
         f"Tried {len(tasks)} name/platform combinations. Found {len(results)} job boards; "
-        f"**{len(added)} have postings in your area and were added** to companies.json.", "",
+        f"**{len(added)} were added** to companies.json (postings in your area now, or marked "
+        "with ! as known to hire in Ontario).", "",
         "Check the *Board name* column: a short or common name can match a different company. "
         "Remove any wrong ones from companies.json.", "",
         "## Added", "",
