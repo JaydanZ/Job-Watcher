@@ -1,0 +1,34 @@
+name: List open jobs
+
+# Run manually (Actions -> List open jobs -> Run workflow) for a full list of every
+# open role that matches your search, any posting date. Results: open_jobs.md / .csv
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: job-watcher # never runs at the same time as the watcher
+  cancel-in-progress: false
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find open jobs
+        run: python3 list_open_jobs.py
+
+      - name: Save results
+        run: |
+          git config user.name "job-watcher"
+          git config user.email "job-watcher@users.noreply.github.com"
+          git add open_jobs.md open_jobs.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "Update open jobs list"
+            git pull --rebase --quiet
+            git push
+          fi
