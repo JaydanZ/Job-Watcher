@@ -19,11 +19,16 @@
     "province_codes": ["ON"],
     "remote_regions": ["canada", "north america"],
     "include_remote_with_no_country": false,
-    "not_my_area_markers": ["ma", "massachusetts", "uk", "united kingdom", "england", "ia", "iowa", "belgium", "us", "usa", "united states"]
+    "ambiguous_cities": ["cambridge"],
+    "not_my_area_markers": ["ma", "massachusetts", "uk", "united kingdom", "england", "ia", "iowa", "belgium", "us", "usa", "united states", "california"]
   },
+
+  "max_posting_age_days": 180,
 
   "resume_match": {
     "min_skills_matched": 3,
+    "min_skills_matched_junior": 1,
+    "junior_title_words": ["junior", "jr", "entry level", "entry", "new grad", "graduate", "early career", "associate", "intermediate", "i", "ii", "level 1", "level 2"],
     "strong_match_skills": 6,
     "max_years_required": 4
   },

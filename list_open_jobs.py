@@ -68,6 +68,19 @@ def main():
         job["fit"], job["reason"], job["date"] = passes, reason, posted_date(job)
         return job
 
+    # Hide very old postings: they're usually evergreen listings or forgotten boards
+    max_days = cfg.get("max_posting_age_days")
+    hidden_old = 0
+    if max_days:
+        kept = []
+        for job in candidates:
+            d = posted_date(job)
+            if d and (today - d).days > max_days:
+                hidden_old += 1
+            else:
+                kept.append(job)
+        candidates = kept
+
     with ThreadPoolExecutor(max_workers=16) as pool:
         jobs = list(pool.map(evaluate, candidates))
 
@@ -102,7 +115,9 @@ def main():
         f"Generated {now:%Y-%m-%d %H:%M} UTC from {len(tasks) - len(failures)} company job boards. "
         f"**{len(good)} good fits** and {len(other)} other title/location matches. "
         "Newest first. \"Posted\" is the date the company's job board reports; "
-        "reposted jobs can look newer than they are.", "",
+        "reposted jobs can look newer than they are."
+        + (f" {hidden_old} postings older than {max_days} days were hidden "
+           "(change `max_posting_age_days` in config.json)." if hidden_old else ""), "",
         "## Good fits", "",
         "| Posted | Company | Role | Location | Your skills it mentions | Yrs asked |",
         "|---|---|---|---|---|---|",

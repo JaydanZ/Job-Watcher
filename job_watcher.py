@@ -296,15 +296,27 @@ class LocationFilter:
         self.foreign = re.compile(
             r"(?<!\w)(" + "|".join(re.escape(m.lower()) for m in foreign) + r")(?!\w)"
         ) if foreign else None
-        self.city_rx = [re.compile(r"(?<!\w)" + re.escape(c) + r"(?!\w)") for c in self.cities]
+        # Cities that also exist elsewhere (Cambridge, MA / UK): they only count when the
+        # posting also mentions Ontario, Canada or another of your cities.
+        self.ambiguous = {c.lower() for c in loc.get("ambiguous_cities", [])}
+        self.city_rx = {c: re.compile(r"(?<!\w)" + re.escape(c) + r"(?!\w)") for c in self.cities}
         self.code_rx = [re.compile(r",\s*" + re.escape(c) + r"\b") for c in self.codes]
 
-    def segment_ok(self, seg):
+    def has_local_context(self, location):
+        s = location.lower()
+        return ("canada" in s or any(p in s for p in self.provinces)
+                or any(rx.search(location) for rx in self.code_rx)
+                or any(rx.search(s) for c, rx in self.city_rx.items() if c not in self.ambiguous))
+
+    def segment_ok(self, seg, context=True):
         s = seg.lower()
+        # "Ontario, CA, United States" or "Waterloo, Iowa, US": somewhere else with the same name
+        if self.foreign and self.foreign.search(s) and "canada" not in s:
+            return False
         if any(p in s for p in self.provinces) or any(rx.search(seg) for rx in self.code_rx):
             return True
-        if any(rx.search(s) for rx in self.city_rx):
-            if "canada" in s or not (self.foreign and self.foreign.search(s)):
+        for city, rx in self.city_rx.items():
+            if rx.search(s) and (city not in self.ambiguous or context):
                 return True
         bare = re.sub(r"[^a-z ]", " ", s).split()
         if bare == ["canada"]:
@@ -319,8 +331,10 @@ class LocationFilter:
     def ok(self, location):
         if not self.enabled:
             return True
-        segments = re.split(r"\s*[|;]\s*|\s+/\s+|\s+or\s+", location or "")
-        return any(self.segment_ok(seg) for seg in segments if seg.strip())
+        location = location or ""
+        context = self.has_local_context(location)
+        segments = re.split(r"\s*[|;]\s*|\s+/\s+|\s+or\s+", location)
+        return any(self.segment_ok(seg, context) for seg in segments if seg.strip())
 
 
 # ---------------------------------------------------------------- resume match
@@ -479,6 +493,10 @@ def check_resume_fit(job, cfg, skills):
     if max_years and job["years_required"] and job["years_required"] > max_years:
         return False, f"asks for {job['years_required']}+ yrs"
     need = rm.get("min_skills_matched", 0)
+    junior = word_regex(rm.get("junior_title_words", []))
+    if junior and junior.search(normalize(job["title"])):
+        # Junior/intermediate postings often describe the work without listing much tech
+        need = rm.get("min_skills_matched_junior", need)
     if len(job["skills_matched"]) < need:
         return False, f"only {len(job['skills_matched'])} skill matches"
     return True, ""
