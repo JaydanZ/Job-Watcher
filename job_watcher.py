@@ -18,6 +18,7 @@ import os
 import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
@@ -230,15 +231,114 @@ def fetch_smartrecruiters_description(slug, job_id):
     return html_to_text(" ".join(s.get("text", "") for s in sections if isinstance(s, dict)))
 
 
+# ---- Phenom career sites (e.g. careers.manulife.com, careers.opentext.com) -----------
+# These have no public API, but each search page embeds its results as JSON
+# ("phApp.ddo"). companies.json entries look like "careers.manulife.com/global/en".
+# Experimental: if a site's page layout differs, the run log shows an error for it.
+
+BROWSER_UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/130.0 Safari/537.36")
+PHENOM_SEARCH_TERMS = ["developer", "engineer"]
+PHENOM_MAX_PAGES = 10  # 10 jobs per page, per search term
+
+
+def get_text(url, timeout=25):
+    req = urllib.request.Request(url, headers={"User-Agent": BROWSER_UA, "Accept": "text/html"})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return resp.read().decode("utf-8", errors="replace")
+
+
+def phenom_ddo(page):
+    """Pull the embedded phApp.ddo JSON object out of a Phenom page."""
+    i = page.find("phApp.ddo")
+    if i < 0:
+        raise ValueError("page has no phApp.ddo data (not a Phenom page, or layout changed)")
+    start = page.find("{", i)
+    obj, _ = json.JSONDecoder().raw_decode(page[start:])
+    return obj
+
+
+def find_key(obj, key):
+    """Depth-first search for the first value stored under `key`."""
+    if isinstance(obj, dict):
+        if key in obj:
+            return obj[key]
+        children = obj.values()
+    elif isinstance(obj, list):
+        children = obj
+    else:
+        return None
+    for child in children:
+        found = find_key(child, key)
+        if found is not None:
+            return found
+    return None
+
+
+def phenom_parts(spec):
+    host, _, locale = spec.partition("/")
+    return host, locale.strip("/")
+
+
+def fetch_phenom(spec):
+    host, locale = phenom_parts(spec)
+    base = f"https://{host}/{locale}" if locale else f"https://{host}"
+    domain = host.split(".")[-2] if host.count(".") >= 1 else host
+    jobs, seen_ids = [], set()
+    for term in PHENOM_SEARCH_TERMS:
+        for page_no in range(PHENOM_MAX_PAGES):
+            url = f"{base}/search-results?keywords={urllib.parse.quote(term)}&from={page_no * 10}&s=1"
+            search = find_key(phenom_ddo(get_text(url)), "eagerLoadRefineSearch") or {}
+            page = (search.get("data") or {}).get("jobs") or []
+            for j in page:
+                job_id = str(j.get("jobId") or j.get("jobSeqNo") or "")
+                if not job_id or job_id in seen_ids:
+                    continue
+                seen_ids.add(job_id)
+                locs = j.get("multi_location") or [j.get("location") or
+                                                  join_location(j.get("city"), j.get("state"), j.get("country"))]
+                posted = str(j.get("postedDate") or j.get("dateCreated") or "")
+                # Phenom dates are usually midnight placeholders, so treat them as a date only
+                posted_at = parse_time(posted) if posted and "T00:00:00" not in posted else None
+                jobs.append({
+                    "id": job_id,
+                    "source": "phenom", "slug": spec,
+                    "company": domain.title(),
+                    "title": j.get("title", ""),
+                    "location": " | ".join(l for l in locs if l),
+                    "url": f"{base}/job/{job_id}",
+                    "posted_at": posted_at,
+                    "posted_date": posted[:10] or None,
+                    "description": None,
+                })
+            total = search.get("totalHits") or 0
+            if not page or (page_no + 1) * 10 >= total:
+                break
+    return jobs
+
+
+def fetch_phenom_description(spec, job_id):
+    host, locale = phenom_parts(spec)
+    base = f"https://{host}/{locale}" if locale else f"https://{host}"
+    ddo = phenom_ddo(get_text(f"{base}/job/{job_id}"))
+    detail = find_key(ddo, "jobDetail") or {}
+    job = ((detail.get("data") or {}).get("job")) or {}
+    return html_to_text(job.get("description") or find_key(ddo, "description") or "")
+
+
 FETCHERS = {
     "greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch_ashby,
     "workable": fetch_workable, "smartrecruiters": fetch_smartrecruiters,
+    "phenom": fetch_phenom,
 }
 DESCRIPTION_FETCHERS = {
     "greenhouse": fetch_greenhouse_description,
     "workable": fetch_workable_description,
     "smartrecruiters": fetch_smartrecruiters_description,
+    "phenom": fetch_phenom_description,
 }
+# Platforms whose boards can't be guessed from a company name (the finder skips them)
+EXPLICIT_ONLY = {"phenom"}
 
 
 # ---------------------------------------------------------------- title filter

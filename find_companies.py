@@ -53,13 +53,13 @@ def read_candidates():
         line = raw.split("#", 1)[0].strip()
         if not line:
             continue
-        m = re.fullmatch(r"(\w+):([\w.%\-]+)(!?)", line)
+        m = re.fullmatch(r"(\w+):([\w.%\-/]+)(!?)", line)
         if m and m.group(1) in jw.FETCHERS:
             label = raw.split("#", 1)[1].strip() if "#" in raw else line
             tasks.append((label + m.group(3), m.group(1), m.group(2)))
             continue
         for slug in slug_variants(line):
-            for platform in jw.FETCHERS:
+            for platform in (p for p in jw.FETCHERS if p not in jw.EXPLICIT_ONLY):
                 tasks.append((line, platform, slug))
     return tasks
 
