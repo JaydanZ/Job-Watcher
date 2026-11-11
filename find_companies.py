@@ -91,6 +91,7 @@ def main():
 
     cfg = jw.load_json(jw.CONFIG_FILE, None)
     companies = jw.load_json(jw.COMPANIES_FILE, {})
+    jw.configure(cfg)
     titles, places = jw.TitleFilter(cfg), jw.LocationFilter(cfg)
     already = {(p, s.lower()) for p, slugs in companies.items() for s in slugs}
 
@@ -152,6 +153,16 @@ def main():
     with jw.COMPANIES_FILE.open("w") as f:
         json.dump(companies, f, indent=2)
         f.write("\n")
+
+    # Workday/Phenom addresses don't contain a readable company name ("td", "myview"),
+    # so remember the name from candidates.txt for notifications.
+    names = dict(jw.COMPANY_NAMES)
+    for r in added:
+        label = r["label"].rstrip("!").strip()
+        if r["platform"] in jw.EXPLICIT_ONLY and ":" not in label:
+            names[f"{r['platform']}:{r['slug']}"] = label
+    if names != jw.COMPANY_NAMES:
+        jw.COMPANY_NAMES_FILE.write_text(json.dumps(names, indent=2, sort_keys=True) + "\n")
 
 
 if __name__ == "__main__":

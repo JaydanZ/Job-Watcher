@@ -3167,3 +3167,164 @@ greenhouse:zscaler  # Zscaler
 ashby:zuru  # Zuru
 lever:zushealth  # Zus Health
 ashby:zus-health  # Zus Health
+
+# --- Workday career sites (from SimplifyJobs listings) that have posted Ontario roles before ---
+workday:td.wd3.myworkdayjobs.com/TD_Bank_Careers!  # TD Bank
+workday:rbc.wd3.myworkdayjobs.com/rbcglobal1!  # Royal Bank of Canada
+workday:ciena.wd5.myworkdayjobs.com/Careers!  # Ciena
+workday:manulife.wd3.myworkdayjobs.com/MFCJH_Jobs!  # Manulife Financial
+workday:bmo.wd3.myworkdayjobs.com/External!  # Bank of Montreal
+workday:aptiv.wd5.myworkdayjobs.com/aptiv_careers!  # Aptiv
+workday:myview.wd3.myworkdayjobs.com/paradox_careers!  # Loblaw Companies
+workday:capitalone.wd12.myworkdayjobs.com/Capital_One!  # Capital One
+workday:lumentum.wd5.myworkdayjobs.com/LITE!  # Lumentum
+workday:altera.wd1.myworkdayjobs.com/altera!  # Altera Corporation
+workday:soti.wd3.myworkdayjobs.com/SOTI-Next-Gen!  # SOTI
+workday:cibc.wd3.myworkdayjobs.com/search!  # CIBC
+workday:generalmotors.wd5.myworkdayjobs.com/Careers_GM!  # General Motors
+workday:semtech.wd1.myworkdayjobs.com/SemtechCareers!  # Semtech
+workday:canadiantirecorporation.wd3.myworkdayjobs.com/Enterprise_External_Careers_Site!  # Canadian Tire
+workday:marvell.wd1.myworkdayjobs.com/MarvellCareers!  # Marvell
+workday:autodesk.wd1.myworkdayjobs.com/Ext!  # Autodesk
+workday:gtsgbu.wd3.myworkdayjobs.com/Careers!  # Hitachi
+workday:otppb.wd3.myworkdayjobs.com/OntarioTeachers_Careers!  # Ontario Teachers' Pension Plan
+workday:hitachi.wd1.myworkdayjobs.com/hitachi!  # Hitachi
+workday:omers.wd3.myworkdayjobs.com/omers_external!  # OMERS
+workday:globalhr.wd5.myworkdayjobs.com/rec_rtx_ext_gateway!  # RTX
+workday:marvell.wd1.myworkdayjobs.com/MarvellCareers2!  # Marvell
+workday:bdo.wd3.myworkdayjobs.com/BDO!  # BDO Canada
+workday:intel.wd1.myworkdayjobs.com/external!  # Intel
+workday:citi.wd5.myworkdayjobs.com/2!  # Citi
+workday:trendmicro.wd3.myworkdayjobs.com/External!  # Trend Micro
+workday:revvity.wd103.myworkdayjobs.com/External!  # Revvity
+workday:tmx.wd3.myworkdayjobs.com/TMX_Careers!  # TMX Group
+workday:intactfc.wd3.myworkdayjobs.com/intactfc!  # Intact
+workday:generac.wd5.myworkdayjobs.com/external!  # Generac
+workday:interac.wd3.myworkdayjobs.com/Interac!  # Interac
+workday:homedepot.wd5.myworkdayjobs.com/CareerDepotCanada!  # The Home Depot
+workday:soti.wd3.myworkdayjobs.com/Careers!  # SOTI
+workday:uottawa.wd3.myworkdayjobs.com/uOttawa_External_Career_Site!  # University of Ottawa
+workday:rockwellautomation.wd1.myworkdayjobs.com/External_Rockwell_Automation!  # Rockwell Automation
+workday:nasdaq.wd1.myworkdayjobs.com/Global_External_Site!  # Nasdaq
+workday:accenture.wd103.myworkdayjobs.com/AccentureCareers!  # Accenture
+workday:sunlife.wd3.myworkdayjobs.com/Experienced-Jobs!  # Sun Life
+workday:pg.wd5.myworkdayjobs.com/1000!  # Procter & Gamble (P&G)
+workday:bestbuycanada.wd3.myworkdayjobs.com/BestBuyCA_Career!  # Best Buy
+workday:navcanada.wd10.myworkdayjobs.com/NAV_Careers!  # NAV CANADA
+workday:nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite!  # NVIDIA
+workday:statestreet.wd1.myworkdayjobs.com/Global!  # State Street
+workday:motorolasolutions.wd5.myworkdayjobs.com/Careers!  # Motorola
+workday:bb.wd3.myworkdayjobs.com/QNX!  # Blackberry
+workday:talentmanagementsolution.wd3.myworkdayjobs.com/JonasSoftwareCanada!  # Jonas Software
+workday:ebay.wd5.myworkdayjobs.com/apply!  # eBay
+workday:trimble.wd1.myworkdayjobs.com/TrimbleCareers!  # Trimble
+workday:slihrms.wd3.myworkdayjobs.com/careers!  # AtkinsRéalis
+workday:mlse.wd3.myworkdayjobs.com/MLSE!  # Maple Leaf Sports & Entertainment Partnership (MLSE)
+workday:flir.wd1.myworkdayjobs.com/flircareers!  # Teledyne
+workday:jj.wd5.myworkdayjobs.com/JJ!  # Johnson & Johnson
+workday:bb.wd3.myworkdayjobs.com/blackberry!  # Blackberry
+workday:stryker.wd1.myworkdayjobs.com/StrykerCareers!  # Stryker
+workday:analogdevices.wd1.myworkdayjobs.com/External!  # Analog Devices
+workday:gevernova.wd5.myworkdayjobs.com/vernova_externalsite!  # GE Vernova
+workday:entrust.wd1.myworkdayjobs.com/entrustcareers!  # Entrust
+workday:menasha.wd12.myworkdayjobs.com/menashacorp!  # Menasha Corporation
+workday:tjx.wd1.myworkdayjobs.com/tjx_external!  # TJX
+workday:astrazeneca.wd3.myworkdayjobs.com/Careers!  # AstraZeneca
+workday:foresters.wd3.myworkdayjobs.com/ForestersFinancialCareers!  # Foresters Financial
+workday:onehealthineers.wd3.myworkdayjobs.com/SHSJB!  # Varian
+workday:synnex.wd5.myworkdayjobs.com/tdsynnexcareers!  # TD Synnex
+workday:vhr-genband.wd1.myworkdayjobs.com/ribboncareers!  # Ribbon
+workday:qualifacts.wd5.myworkdayjobs.com/Qualifacts_External_Careers!  # Qualifacts
+workday:cat.wd5.myworkdayjobs.com/CaterpillarCareers!  # Caterpillar Inc.
+workday:thales.wd3.myworkdayjobs.com/Careers!  # Thales
+workday:enbridge.wd3.myworkdayjobs.com/enbridge_careers!  # Enbridge
+workday:elementfleet.wd3.myworkdayjobs.com/External_Career_Site!  # Element Fleet Management
+workday:bird.wd3.myworkdayjobs.com/BirdConstructionCareers!  # Bird Construction
+workday:mitel.wd3.myworkdayjobs.com/mitelcareers!  # Mitel Networks
+workday:nxp.wd3.myworkdayjobs.com/careers!  # NXP Semiconductors
+workday:thomsonreuters.wd5.myworkdayjobs.com/External_Career_Site!  # Thomson Reuters
+workday:stoneridge.wd5.myworkdayjobs.com/careers!  # Stoneridge
+workday:mckesson.wd3.myworkdayjobs.com/External_Careers!  # McKesson
+workday:mmc.wd1.myworkdayjobs.com/mmc!  # Marsh
+workday:cisco.wd5.myworkdayjobs.com/cisco_careers!  # Cisco
+workday:curtisswright.wd1.myworkdayjobs.com/cw_external_career_site!  # Curtiss-Wright Corporation
+workday:brookfield.wd5.myworkdayjobs.com/brookfield!  # Brookfield
+workday:ryan.wd1.myworkdayjobs.com/RyanCareers!  # Ryan
+workday:thyssenkruppmaterialsna.wd12.myworkdayjobs.com/1!  # thyssenkrupp
+workday:cmcmarkets.wd3.myworkdayjobs.com/CMC_Markets_Careers!  # CMC Markets
+workday:rsm.wd1.myworkdayjobs.com/RSMCareers!  # RSM
+workday:gsk.wd5.myworkdayjobs.com/GSKCareers!  # GSK
+workday:volarisgroup.wd3.myworkdayjobs.com/BiblioCommons!  # BiblioCommons
+workday:rakuten.wd1.myworkdayjobs.com/Kobo!  # Kobo
+workday:astrazeneca.wd3.myworkdayjobs.com/alexion!  # Alexion
+workday:clio.wd3.myworkdayjobs.com/ClioCareerSite!  # Clio
+workday:spscommerce.wd108.myworkdayjobs.com/SPS!  # SPS Commerce
+workday:abbott.wd5.myworkdayjobs.com/abbottcareers!  # Abbott
+workday:cadence.wd1.myworkdayjobs.com/External_Careers!  # Cadence Design Systems
+workday:gehc.wd5.myworkdayjobs.com/GEHC_ExternalSite!  # GE Healthcare
+workday:ssctech.wd1.myworkdayjobs.com/ssctechnologies!  # SS&C
+workday:fourseasons.wd3.myworkdayjobs.com/search!  # Four Seasons
+workday:jabil.wd5.myworkdayjobs.com/Jabil_Careers!  # Jabil
+workday:relx.wd3.myworkdayjobs.com/relx!  # RELX
+workday:parsons.wd5.myworkdayjobs.com/search!  # Parsons
+workday:viavisolutions.wd1.myworkdayjobs.com/careers!  # Viavi Solutions
+workday:mastercard.wd1.myworkdayjobs.com/CorporateCareers!  # Mastercard
+workday:unilever.wd3.myworkdayjobs.com/Unilever_Experienced_Professionals!  # Unilever
+workday:philips.wd3.myworkdayjobs.com/jobs-and-careers!  # Philips
+workday:dentsuaegis.wd3.myworkdayjobs.com/DAN_GLOBAL!  # Dentsu
+workday:gentex.wd5.myworkdayjobs.com/Gentex!  # Gentex Corporation
+workday:crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers!  # Crowdstrike
+workday:equinix.wd1.myworkdayjobs.com/External!  # Equinix
+workday:mmc.wd1.myworkdayjobs.com/MMC!  # Marsh & McLennan
+workday:adobe.wd5.myworkdayjobs.com/external_experienced!  # Adobe
+workday:sanofi.wd3.myworkdayjobs.com/SanofiCareers!  # Sanofi
+workday:broadridge.wd5.myworkdayjobs.com/careers!  # Broadridge
+workday:relx.wd3.myworkdayjobs.com/LexisNexisLegal!  # LexisNexis Legal & Professional
+workday:danaher.wd1.myworkdayjobs.com/danaherjobs!  # Danaher Corporation
+workday:fiserv.wd5.myworkdayjobs.com/ext!  # Fiserv
+workday:selinc.wd1.myworkdayjobs.com/SEL!  # Schweitzer Engineering Laboratories
+workday:proofpoint.wd5.myworkdayjobs.com/proofpointcareers!  # Proofpoint
+workday:everestre.wd5.myworkdayjobs.com/careers!  # Everest
+workday:marmon.wd501.myworkdayjobs.com/Marmon_Careers!  # Marmon Holdings
+workday:morningstar.wd5.myworkdayjobs.com/Americas!  # Morningstar
+workday:warnerbros.wd5.myworkdayjobs.com/global!  # Warner Bros.
+workday:cdw.wd5.myworkdayjobs.com/careers!  # CDW Corporation
+workday:firstquantum.wd3.myworkdayjobs.com/First_Quantum_Careers!  # First Quantum Minerals
+workday:miqdigital.wd3.myworkdayjobs.com/MiQ_Careers!  # MiQ
+workday:danaher.wd1.myworkdayjobs.com/DanaherJobs!  # Danaher Corporation
+workday:equifax.wd5.myworkdayjobs.com/UR_External!  # Equifax
+workday:3m.wd1.myworkdayjobs.com/Search!  # 3M
+workday:priceline.wd1.myworkdayjobs.com/Priceline!  # Priceline
+workday:ryder.wd5.myworkdayjobs.com/RyderCareers!  # Ryder System
+workday:medaviehs.wd10.myworkdayjobs.com/Medavie_External!  # Medavie
+workday:roche.wd3.myworkdayjobs.com/roche-ext!  # Roche
+workday:iqvia.wd1.myworkdayjobs.com/IQVIA!  # IQVIA
+workday:tera.wd3.myworkdayjobs.com/TERANET!  # Teranet
+workday:clearesult.wd1.myworkdayjobs.com/CLEAResult_External_Careers!  # CLEAResult
+workday:lifeworks.wd3.myworkdayjobs.com/External!  # TELUS
+workday:likewize.wd1.myworkdayjobs.com/External!  # Likewize
+workday:mars.wd3.myworkdayjobs.com/external!  # Mars
+workday:semtech.wd1.myworkdayjobs.com/SemtechJobs!  # Semtech
+workday:airliquidehr.wd3.myworkdayjobs.com/AirLiquideExternalCareer!  # Air Liquide
+workday:litera.wd12.myworkdayjobs.com/Litera_Careers!  # Litera
+workday:interpublic.wd5.myworkdayjobs.com/omc!  # Omnicom Group
+workday:andersen.wd12.myworkdayjobs.com/Andersen_External_Career_Site!  # Andersen Corporation
+workday:freseniusmedicalcare.wd3.myworkdayjobs.com/fme!  # Fresenius Medical Care
+workday:isc.wd10.myworkdayjobs.com/ISC!  # Information Services Corporation
+workday:morningstar.wd5.myworkdayjobs.com/Morningstar!  # Morningstar
+workday:blackline.wd108.myworkdayjobs.com/BlackLineCareers!  # BlackLine
+workday:genesys.wd1.myworkdayjobs.com/Genesys!  # Genesys
+workday:datarobot.wd1.myworkdayjobs.com/DataRobot_External_Careers!  # DataRobot
+workday:fairstone.wd3.myworkdayjobs.com/FairstoneCareers!  # Fairstone Financial
+workday:volarisgroup.wd3.myworkdayjobs.com/AssetWorks!  # AssetWorks
+workday:oh.wd3.myworkdayjobs.com/OH!  # Ontario Health
+workday:imcoinvest.wd3.myworkdayjobs.com/IMCO!  # Investment Management Corporation of Ontario
+workday:rockwoolgroup.wd3.myworkdayjobs.com/ROCKWOOL!  # ROCKWOOL Group
+workday:iko.wd3.myworkdayjobs.com/iko_careers!  # IKO
+workday:fccfac.wd3.myworkdayjobs.com/careers-carrieres!  # Farm Credit Canada
+workday:aliaxis.wd3.myworkdayjobs.com/aliaxis!  # Alliaxis
+
+# --- Phenom career sites (experimental) that have posted Ontario or remote-Canada roles ---
+phenom:careers.hellofresh.com/global/en!  # HelloFresh
+phenom:www.yelp.careers/us/en!  # Yelp
+phenom:careers.ey.com/ey!  # EY

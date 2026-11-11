@@ -1,5 +1,5 @@
 {
-  "max_age_minutes": 120,
+  "max_age_minutes": 60,
 
   "title_focus_words": ["software", "full stack", "front end", "back end", "web", "react", "python", "django", "node", "typescript", "javascript", "forward deployed"],
   "title_role_words": ["engineer", "engineering", "developer", "development", "dev"],
@@ -28,6 +28,9 @@
   },
 
   "max_posting_age_days": 180,
+
+  "career_site_search_terms": ["developer", "engineer"],
+  "career_site_max_pages": 5,
 
   "resume_match": {
     "min_skills_matched": 2,

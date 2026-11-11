@@ -21,7 +21,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -238,8 +238,22 @@ def fetch_smartrecruiters_description(slug, job_id):
 
 BROWSER_UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
               "(KHTML, like Gecko) Chrome/130.0 Safari/537.36")
-PHENOM_SEARCH_TERMS = ["developer", "engineer"]
-PHENOM_MAX_PAGES = 10  # 10 jobs per page, per search term
+# Big career sites (Phenom, Workday) are searched instead of read in full.
+# configure() overrides these from config.json.
+SEARCH_TERMS = ["developer", "engineer"]
+MAX_PAGES = 5
+TITLE_OK = None        # set by configure(); lets Workday skip work for irrelevant titles
+COMPANY_NAMES = {}     # "workday:td.wd3.myworkdayjobs.com/TD_Bank_Careers" -> "TD Bank"
+COMPANY_NAMES_FILE = Path(__file__).resolve().parent / "company_names.json"
+
+
+def configure(cfg):
+    global SEARCH_TERMS, MAX_PAGES, TITLE_OK, COMPANY_NAMES
+    SEARCH_TERMS = cfg.get("career_site_search_terms", SEARCH_TERMS)
+    MAX_PAGES = cfg.get("career_site_max_pages", MAX_PAGES)
+    TITLE_OK = TitleFilter(cfg).ok
+    if COMPANY_NAMES_FILE.exists():
+        COMPANY_NAMES = json.loads(COMPANY_NAMES_FILE.read_text())
 
 
 def get_text(url, timeout=25):
@@ -285,8 +299,8 @@ def fetch_phenom(spec):
     base = f"https://{host}/{locale}" if locale else f"https://{host}"
     domain = host.split(".")[-2] if host.count(".") >= 1 else host
     jobs, seen_ids = [], set()
-    for term in PHENOM_SEARCH_TERMS:
-        for page_no in range(PHENOM_MAX_PAGES):
+    for term in SEARCH_TERMS:
+        for page_no in range(MAX_PAGES * 2):  # Phenom pages hold 10 jobs, Workday's 20
             url = f"{base}/search-results?keywords={urllib.parse.quote(term)}&from={page_no * 10}&s=1"
             search = find_key(phenom_ddo(get_text(url)), "eagerLoadRefineSearch") or {}
             page = (search.get("data") or {}).get("jobs") or []
@@ -326,19 +340,115 @@ def fetch_phenom_description(spec, job_id):
     return html_to_text(job.get("description") or find_key(ddo, "description") or "")
 
 
+# ---- Workday (e.g. td.wd3.myworkdayjobs.com/TD_Bank_Careers) ------------------------
+# Uses the JSON search API behind every myworkdayjobs.com career site.
+
+_workday_details = {}  # (spec, externalPath) -> jobPostingInfo, reused for descriptions
+
+
+def post_json(url, body, timeout=25):
+    req = urllib.request.Request(
+        url, data=json.dumps(body).encode(), method="POST",
+        headers={"User-Agent": BROWSER_UA, "Accept": "application/json",
+                 "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return json.load(resp)
+
+
+def workday_parts(spec):
+    host, _, site = spec.partition("/")
+    return host, host.split(".")[0], site.strip("/")
+
+
+def workday_posted_date(text, today):
+    """'Posted Today' / 'Posted Yesterday' / 'Posted 3 Days Ago' / 'Posted 30+ Days Ago'."""
+    t = (text or "").lower()
+    if "today" in t:
+        days = 0
+    elif "yesterday" in t:
+        days = 1
+    else:
+        m = re.search(r"(\d+)\+?\s*day", t)
+        if not m:
+            return None
+        days = int(m.group(1)) + (1 if "+" in t else 0)
+    return (today - timedelta(days=days)).isoformat()
+
+
+def workday_detail(spec, path):
+    key = (spec, path)
+    if key not in _workday_details:
+        host, tenant, site = workday_parts(spec)
+        data = get_json_ua(f"https://{host}/wday/cxs/{tenant}/{site}{path}")
+        _workday_details[key] = data.get("jobPostingInfo") or {}
+    return _workday_details[key]
+
+
+def get_json_ua(url, timeout=25):
+    req = urllib.request.Request(url, headers={"User-Agent": BROWSER_UA, "Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return json.load(resp)
+
+
+def fetch_workday(spec):
+    host, tenant, site = workday_parts(spec)
+    api = f"https://{host}/wday/cxs/{tenant}/{site}/jobs"
+    today = datetime.now(timezone.utc).date()
+    jobs, seen_paths = [], set()
+    for term in SEARCH_TERMS:
+        total = None
+        for page_no in range(MAX_PAGES):
+            data = post_json(api, {"appliedFacets": {}, "limit": 20, "offset": page_no * 20,
+                                   "searchText": term})
+            if total is None:
+                total = data.get("total") or 0  # some sites only report it on page 1
+            page = data.get("jobPostings") or []
+            for j in page:
+                path = j.get("externalPath")
+                if not path or path in seen_paths:
+                    continue
+                seen_paths.add(path)
+                title, loc = j.get("title", ""), j.get("locationsText", "")
+                if re.fullmatch(r"\d+\s+Locations?", loc.strip(), re.I) and (TITLE_OK is None or TITLE_OK(title)):
+                    try:  # "3 Locations": look up which ones, only for titles you'd want
+                        info = workday_detail(spec, path)
+                        loc = " | ".join(filter(None, [info.get("location")] + (info.get("additionalLocations") or []))) or loc
+                    except Exception:
+                        pass
+                jobs.append({
+                    "id": path,
+                    "source": "workday", "slug": spec,
+                    "company": pretty_name(tenant),
+                    "title": title,
+                    "location": loc,
+                    "url": f"https://{host}/en-US/{site}{path}",
+                    "posted_at": None,  # Workday only says "Posted Today", "Posted 3 Days Ago", ...
+                    "posted_date": workday_posted_date(j.get("postedOn"), today),
+                    "description": None,
+                })
+            if not page or (page_no + 1) * 20 >= total:
+                break
+    return jobs
+
+
+def fetch_workday_description(spec, path):
+    return html_to_text(workday_detail(spec, path).get("jobDescription", ""))
+
+
 FETCHERS = {
     "greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch_ashby,
     "workable": fetch_workable, "smartrecruiters": fetch_smartrecruiters,
-    "phenom": fetch_phenom,
+    "phenom": fetch_phenom, "workday": fetch_workday,
 }
 DESCRIPTION_FETCHERS = {
     "greenhouse": fetch_greenhouse_description,
     "workable": fetch_workable_description,
     "smartrecruiters": fetch_smartrecruiters_description,
     "phenom": fetch_phenom_description,
+    "workday": fetch_workday_description,
 }
 # Platforms whose boards can't be guessed from a company name (the finder skips them)
-EXPLICIT_ONLY = {"phenom"}
+EXPLICIT_ONLY = {"phenom", "workday"}
 
 
 # ---------------------------------------------------------------- title filter
@@ -491,7 +601,15 @@ def send_ntfy(server, topic, title, message, click=None, tags=None, priority=3):
 
 
 def describe(job, now):
-    lines = [f"{job['location'] or 'Location not listed'} · posted {human_age(job['posted_at'], now)}"]
+    if job.get("posted_at"):
+        when = f"posted {human_age(job['posted_at'], now)}"
+    elif job.get("posted_date") == now.date().isoformat():
+        when = "posted today"
+    elif job.get("posted_date"):
+        when = f"posted {job['posted_date']}"
+    else:
+        when = "just appeared"
+    lines = [f"{job['location'] or 'Location not listed'} · {when}"]
     skills = job.get("skills_matched")
     if skills is None:
         lines.append("Couldn't read the description, so skills weren't checked")
@@ -567,7 +685,12 @@ def load_json(path, default):
 
 def fetch_one(source, slug):
     try:
-        return source, slug, FETCHERS[source](slug), None
+        jobs = FETCHERS[source](slug)
+        name = COMPANY_NAMES.get(f"{source}:{slug}")
+        if name:
+            for j in jobs:
+                j["company"] = name
+        return source, slug, jobs, None
     except urllib.error.HTTPError as e:
         return source, slug, None, f"HTTP {e.code} (check the slug)"
     except Exception as e:
@@ -622,6 +745,7 @@ def main():
     if cfg is None or companies is None:
         sys.exit("config.json and companies.json are required.")
 
+    configure(cfg)
     titles, places, skills = TitleFilter(cfg), LocationFilter(cfg), SkillMatcher(cfg)
     max_age_min = cfg.get("max_age_minutes", 60)
     seen = load_json(SEEN_FILE, {})  # {"greenhouse:stripe": {"job_id": "first_seen_iso"}}

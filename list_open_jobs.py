@@ -43,6 +43,7 @@ def md_escape(text):
 def main():
     cfg = jw.load_json(jw.CONFIG_FILE, None)
     companies = jw.load_json(jw.COMPANIES_FILE, {})
+    jw.configure(cfg)
     titles, places, skills = jw.TitleFilter(cfg), jw.LocationFilter(cfg), jw.SkillMatcher(cfg)
     now = datetime.now(timezone.utc)
     today = now.date()
