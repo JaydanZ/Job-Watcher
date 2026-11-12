@@ -1,5 +1,5 @@
 {
-  "max_age_minutes": 60,
+  "max_age_minutes": 120,
 
   "title_focus_words": ["software", "full stack", "front end", "back end", "web", "react", "python", "django", "node", "typescript", "javascript", "forward deployed"],
   "title_role_words": ["engineer", "engineering", "developer", "development", "dev"],
