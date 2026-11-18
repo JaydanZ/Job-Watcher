@@ -1,5 +1,5 @@
 {
-  "max_age_minutes": 120,
+  "max_age_minutes": 60,
 
   "title_focus_words": ["software", "full stack", "front end", "back end", "web", "react", "python", "django", "node", "typescript", "javascript", "forward deployed"],
   "title_role_words": ["engineer", "engineering", "developer", "development", "dev"],
@@ -21,8 +21,10 @@
     "cities": ["toronto", "kitchener", "waterloo", "cambridge", "guelph", "mississauga", "greater toronto", "gta"],
     "province_names": ["ontario"],
     "province_codes": ["ON"],
-    "remote_regions": ["canada", "north america"],
-    "include_remote_with_no_country": false,
+    "remote_regions": ["canada"],
+    "remote_global_regions": ["worldwide", "world wide", "anywhere", "north america", "americas", "global", "international"],
+    "other_region_words": ["emea", "europe", "eu", "apac", "asia", "latam", "latin america", "south america", "india", "uk", "united kingdom", "germany", "australia", "brazil", "mexico"],
+    "remote_with_no_country": "check_description",
     "ambiguous_cities": ["cambridge"],
     "not_my_area_markers": ["ma", "massachusetts", "uk", "united kingdom", "england", "ia", "iowa", "belgium", "us", "usa", "united states", "california"]
   },

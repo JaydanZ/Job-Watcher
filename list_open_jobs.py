@@ -58,7 +58,10 @@ def main():
         for job in jobs or []:
             if job["url"] in seen_urls:
                 continue
-            if titles.ok(job["title"]) and places.ok(job["location"]):
+            if not titles.ok(job["title"]):
+                continue
+            job["location_class"] = places.classify(job["location"])
+            if job["location_class"] != jw.NO:
                 seen_urls.add(job["url"])
                 candidates.append(job)
     print(f"Checked {len(tasks) - len(failures)}/{len(tasks)} boards; "
@@ -111,7 +114,8 @@ def main():
                     "skills_matched", "years_required", "why_not_a_fit", "url"])
         for j in good + other:
             w.writerow(["yes" if j["fit"] else "no", j["date"] or "", age(j), j["company"], j["title"],
-                        j["location"], skills_text(j), j.get("years_required") or "",
+                        j["location"] + (f" ({j['remote_note']})" if j.get("remote_note") else ""),
+                        skills_text(j), j.get("years_required") or "",
                         "" if j["fit"] else j["reason"], j["url"]])
 
     # ---- Markdown
@@ -131,7 +135,8 @@ def main():
         s = j.get("skills_matched")
         sk = "couldn't read description" if s is None else f"**{len(s)}**: {', '.join(s[:8])}{'…' if len(s) > 8 else ''}"
         lines.append(f"| {age(j)} | {md_escape(j['company'])} | [{md_escape(j['title'])}]({j['url']}) | "
-                     f"{md_escape(j['location'])} | {sk} | {j.get('years_required') or '–'} |")
+                     f"{md_escape(j['location'])}{' 🌎 ' + j['remote_note'] if j.get('remote_note') else ''} | "
+                     f"{sk} | {j.get('years_required') or '–'} |")
     lines += ["", "## Other matches (filtered out by your resume rules)", "",
               "| Posted | Company | Role | Location | Why it was filtered |", "|---|---|---|---|---|"]
     for j in other:

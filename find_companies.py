@@ -72,7 +72,9 @@ def probe(task, titles, places):
         return None  # 404 or unreachable: not on this platform under this slug
     if not jobs:
         return None
-    local = [j for j in jobs if places.ok(j["location"])]
+    # Counts jobs in your area or remote worldwide / Americas (plain "Remote" doesn't count:
+    # it's usually US-only, and the finder doesn't read descriptions)
+    local = [j for j in jobs if places.classify(j["location"]) in (jw.LOCAL, jw.REMOTE_GLOBAL)]
     dev = [j for j in local if titles.ok(j["title"])]
     return {
         "label": label, "platform": platform, "slug": slug,

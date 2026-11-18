@@ -3513,3 +3513,352 @@ rippling:findhelp  # findhelp
 rippling:liveops  # Liveops
 rippling:solidus-resources  # Solidus Resources
 rippling:rlb-llp  # RLB
+
+# --- Remote-first companies hiring worldwide or in the Americas (from the Remote In Tech directory) ---
+42 Technologies
+A-1 Auto Transport
+Abstract
+Ad Hoc
+Adeva
+Aerostrat
+AirGarage
+Alley
+Amazon
+Ambaum
+Applied AI Company (AAICO)
+Appstractor
+Appwrite
+Argyle
+Arkency
+Asana
+ATOZDEBUG
+Audiense
+Aula Education
+Bairesdev
+Balena
+Bandcamp
+workable:bandlabtechnologies  # BandLab
+Baremetrics
+Basecamp
+Best Practical Solutions
+Bit Zesty
+Bitwarden
+Boldare
+Bonsai
+Brave
+Broadwing
+Buffer
+Bugfender
+Cabify
+Cal.com
+Calibre
+Canonical
+Capchase
+Capital Placement
+Carbon Black
+CareCru
+CartoDB
+CartStack
+Chainguard
+Chargify
+Chess
+greenhouse:circleci  # CircleCI
+ClickUp
+Close
+CloudBees
+Codea IT
+CodePen
+CodeSandbox
+Cofense
+Coforma
+Coinbase
+Collabora
+Compucorp
+Connexa
+ConsenSys Inc
+Conversio
+Convert
+Core-Apps
+CrazyGames
+CREEX TEAM
+Crowdstrike
+Cueup
+CVS Health
+CWT
+Daktronics
+DappRadar
+DashboardHub
+Dashlane
+Data Science Brigade
+Data Science Dojo
+DataStax
+DealDash
+ashby:Deel  # Deel
+Designcode
+Deskpass
+Dev Spotlight
+workable:devsquad  # Devsquad
+Discourse
+Doist
+Doximity
+Dribbble
+Drupal Jedi
+DuckDuckGo
+DynaPictures
+EatStreet
+Ebury
+Enok Collective
+Envoy
+Epic Games
+Epilocal
+Episource
+Epsy Health
+Ergeon
+Estately
+Evil Martians
+Evrone
+ExportData
+Extreme Networks
+Fairwinds Ops
+FDTE
+Findify
+Fingerprint
+Fire Engine Red
+FireHire
+First Point
+FivexL
+fleetio
+FlightAware
+FMX
+Foh&Boh
+Four Kitchens
+Freeagent
+Fuel Made
+Functionize
+General Assembly
+Ghost
+Glenn Website Design
+GoDaddy
+Gorman Health Group
+Graylog
+Harvest
+HE:labs
+Headway
+Healthfinch
+Heap
+Help Scout
+Hireology
+HomeValet, Inc
+Honeybadger
+Hotjar
+Hubspot
+Hubstaff
+workable:huggingface  # Hugging Face
+Hugo
+Human Made
+IBM
+IDoneThis
+Infinite Red
+InQuicker
+Inter.link
+Interpersonal Frequency (I.F.)
+Intuit Inc.
+Intuition Machines, Inc.
+iRonin
+lever:iterative  # Iterative
+iwantmyname
+Jaya Tech
+JBS Custom Software Solutions
+Jitbit
+Jitera
+JOOR
+Kake
+Karat
+Kentik Technologies Inc.
+Kestra
+Khan Academy
+Kinsta
+Kiprosh
+Kona
+Kraken
+Labelbox
+Lambda School
+LaterPay
+Launch Potato
+Leadership Success
+LeadIQ
+Lincoln Loop
+Linear
+LionSher
+Litmus Software
+LivePerson
+LogDog
+Luxoft
+ashby:luxor  # Luxor Technology
+MailerLite
+MaintainNow
+Marco Polo
+MariaDB
+MarsBased
+Mattermost
+Mediavine
+Memberful
+Memory
+Merico
+messagebird
+greenhouse:consensys  # MetaMask
+greenhouse:modernhealth  # Modern Health
+Modern Tribe
+MODSQUAD
+Molteo
+MVPMule
+Nationwide
+Nearform
+Netlify
+Nettl Edinburgh
+NEXT
+No Code No Problem
+NodeSource
+Nozbe
+Nuna Inc
+Ocient
+Octopus Deploy
+lever:myollie  # Ollie
+Ombu Labs
+OmniTI
+On The Go Systems
+Onna
+OpenRouter
+OpenZeppelin
+Optoro
+OutsourcingDev
+Oyster HR
+Parabol
+Parexel
+Parsely
+Particular Software
+Payfully
+PayU
+Peakforce
+Percona
+Pex
+PhantomBuster
+Platform Builders
+Pleo
+Polygon
+Positiwise
+PostHog
+Precision Nutrition
+Prelude
+Primer
+Prisma
+Quantify
+QuickTrials
+Quora
+Rackspace
+Raft
+Railway
+Rainforest QA
+Rakuten Travel Xchange
+Raycast
+RebelMouse
+ReCharge Payments
+Reddit
+RedMonk
+RemoteMore
+Render
+RenoFi
+Renée Space
+Replit
+Research Square
+Resend
+Retool
+RevenueCat
+Roundproxies
+Safeguard Global
+workday:salesforce.wd1.myworkdayjobs.com/External_Career_Site  # Salesforce
+Sardine.ai
+Scaloy Technology LLP
+ScrapingBee
+workable:scrapinghub  # Scrapinghub
+smartrecruiters:SeaplaneIOInc  # Seaplane
+SearchApi
+SeatGeek
+Seeq
+Sendwave (International Remittance)
+SerpApi
+ServMask
+Session
+Shattered Silicon
+workable:shippabo  # Shippabo
+Shogun
+Six to Start
+ashby:sketch  # Sketch
+lever:skillshare  # Skillshare
+Skyrocket Ventures
+Smile.io
+SmugMug
+Sommo
+Sonatype
+Soshace, LLC.
+Sourcegraph
+Spruce
+Stairlin
+Status
+Sticker Mule
+StormX
+Strapi
+StudySoup
+Supabase
+Superplayer & Co
+SUSE
+Sutherland CloudSource
+Syde
+Tag1 Consulting
+Tailscale
+TaxJar
+Teamflow
+Temporal
+TestGorilla
+The Crafters Lab
+The Home Depot
+Thinkful
+Thorn
+Three Movers
+Time Doctor
+TimeSpot
+toggl
+Travis
+Travis CI
+Treez
+Tyk
+Udacity
+Uhuru
+upcell
+Upworthy
+Ushahidi
+v0 report
+Varnish Software
+Vercel
+Veryfi
+VGS
+Viperdev
+WebFX
+Wells Fargo
+WeMakeMVP
+Whitespectre
+WireFuture
+Wolfram
+WorkOS
+Wyeworks
+X-Team
+Xapo
+Yahoo!
+Yodo1
+Yonder
+You Need A Budget
+Zaneffi
+Zemoso
+ZenRows
+Zignaly
+ZooTools

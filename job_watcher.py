@@ -542,12 +542,24 @@ class TitleFilter:
 
 # ---------------------------------------------------------------- location filter
 
+LOCAL, REMOTE_GLOBAL, REMOTE_UNCLEAR, NO = "local", "remote_global", "remote_unclear", "no"
+_RANK = {NO: 0, REMOTE_UNCLEAR: 1, REMOTE_GLOBAL: 2, LOCAL: 3}
+# Words that make a bare "Remote" location: "Remote", "Fully Remote", "Remote - Multiple Locations"
+_BARE_REMOTE_WORDS = {"remote", "fully", "100", "work", "from", "home", "wfh", "first",
+                      "friendly", "flexible", "position", "role", "only", "multiple", "locations",
+                      "location", "various", "team", "distributed", "job", "opportunity"}
+# Weak "global" words: ignored if the location also names a non-Americas region ("Global - EMEA")
+_WEAK_GLOBAL = {"global", "international"}
+
+
 class LocationFilter:
     """
-    A job matches if any of its listed locations is:
-      - one of your cities (and not e.g. Cambridge, MA or Waterloo, Iowa),
-      - anywhere in your province ("Ontario" or ", ON"),
-      - remote in one of your remote regions ("Remote - Canada"), or plain "Canada".
+    Sorts a job's location into one of:
+      local          - one of your cities, your province, or Canada / remote in Canada
+      remote_global  - remote and open worldwide or across the Americas / North America
+      remote_unclear - just "Remote" with no country; the description decides (see
+                       remote_eligibility) when remote_with_no_country is "check_description"
+      no             - anywhere else (incl. US-only remote, Cambridge MA, Ontario CA...)
     """
 
     def __init__(self, cfg):
@@ -557,7 +569,14 @@ class LocationFilter:
         self.provinces = [p.lower() for p in loc.get("province_names", [])]
         self.codes = loc.get("province_codes", [])
         self.remote_regions = [r.lower() for r in loc.get("remote_regions", [])]
-        self.remote_anywhere = loc.get("include_remote_with_no_country", False)
+        self.global_regions = [r.lower() for r in loc.get("remote_global_regions", [])]
+        other = loc.get("other_region_words", [])
+        self.other_regions = re.compile(
+            r"(?<!\w)(" + "|".join(re.escape(w.lower()) for w in other) + r")(?!\w)") if other else None
+        # remote_with_no_country: "check_description" (default), true (accept), or false (skip).
+        # The older include_remote_with_no_country setting is still honoured.
+        self.no_country = loc.get("remote_with_no_country",
+                                  loc.get("include_remote_with_no_country", "check_description"))
         foreign = loc.get("not_my_area_markers", [])
         self.foreign = re.compile(
             r"(?<!\w)(" + "|".join(re.escape(m.lower()) for m in foreign) + r")(?!\w)"
@@ -574,33 +593,87 @@ class LocationFilter:
                 or any(rx.search(location) for rx in self.code_rx)
                 or any(rx.search(s) for c, rx in self.city_rx.items() if c not in self.ambiguous))
 
-    def segment_ok(self, seg, context=True):
+    def segment_class(self, seg, context=True):
         s = seg.lower()
+        bare = re.sub(r"[^a-z0-9 ]", " ", s).split()
+        global_hits = [g for g in self.global_regions if re.search(r"(?<!\w)" + re.escape(g) + r"(?!\w)", s)]
+        if "remote" in s or global_hits:
+            if any(r in s for r in self.remote_regions) or any(p in s for p in self.provinces):
+                return LOCAL                                   # "Remote - Canada", "Remote, Ontario"
+            strong = [g for g in global_hits if g not in _WEAK_GLOBAL]
+            if strong or (global_hits and not (self.other_regions and self.other_regions.search(s))):
+                return REMOTE_GLOBAL                           # "Worldwide", "Remote - Americas"
+            if bare and set(bare) <= _BARE_REMOTE_WORDS:       # "Remote", "Fully Remote"
+                if self.no_country == "check_description":
+                    return REMOTE_UNCLEAR
+                return REMOTE_GLOBAL if self.no_country else NO
+            # otherwise remote somewhere specific ("Remote - US", "Remote, Germany"): fall through
         # "Ontario, CA, United States" or "Waterloo, Iowa, US": somewhere else with the same name
         if self.foreign and self.foreign.search(s) and "canada" not in s:
-            return False
+            return NO
         if any(p in s for p in self.provinces) or any(rx.search(seg) for rx in self.code_rx):
-            return True
+            return LOCAL
         for city, rx in self.city_rx.items():
             if rx.search(s) and (city not in self.ambiguous or context):
-                return True
-        bare = re.sub(r"[^a-z ]", " ", s).split()
+                return LOCAL
         if bare == ["canada"]:
-            return True
-        if "remote" in s or "anywhere" in s:
-            if any(r in s for r in self.remote_regions):
-                return True
-            if self.remote_anywhere and set(bare) <= {"remote", "anywhere", "fully", "global"}:
-                return True
-        return False
+            return LOCAL
+        return NO
 
-    def ok(self, location):
+    def classify(self, location):
         if not self.enabled:
-            return True
+            return LOCAL
         location = location or ""
         context = self.has_local_context(location)
         segments = re.split(r"\s*[|;]\s*|\s+/\s+|\s+or\s+", location)
-        return any(self.segment_ok(seg, context) for seg in segments if seg.strip())
+        best = NO
+        for seg in segments:
+            if seg.strip():
+                c = self.segment_class(seg, context)
+                if _RANK[c] > _RANK[best]:
+                    best = c
+        return best
+
+    def ok(self, location):
+        return self.classify(location) != NO
+
+
+# Remote roles outside Canada: does the description say Canadians can apply?
+_CANADA_EXCLUDED = re.compile(
+    r"(not|unable to|cannot|can't|don't|do not)\s+(currently\s+)?(hire|hiring|employ|accept|sponsor)[^.]{0,60}\bcanad|"
+    r"\b(excluding|except|outside of)\s+canada", re.I)
+_CANADA_MENTIONED = re.compile(r"\bcanada\b|\bcanadian|\bontario\b|\btoronto\b", re.I)
+_REGION_ONLY = re.compile(
+    r"\b(must|need to|needs to|required to|should|will need to|have to)\s+(be\s+)?(currently\s+)?"
+    r"(located|based|reside|residing|live|living|work|working)\s+(in|within|from)\s+(the\s+)?"
+    r"(us|u\.s\.?|usa|united states|europe|eu|uk|united kingdom|emea|latam|latin america|india|apac|asia|"
+    r"australia|germany|france|spain|poland|brazil|mexico|philippines)\b|"
+    r"\b(us|u\.s\.)[- ]based\s+(candidates|applicants|employees|only|role|position)|"
+    r"\bauthori[sz]ed to work in the (us|u\.s\.?|united states)|"
+    r"\b(us|u\.s\.)\s+(citizens?|citizenship|persons?)\b|\bsecurity clearance\b|"
+    r"\b(us|u\.s\.|usa)[- ]only\b|\bwithin the (us|u\.s\.?|united states) only\b|"
+    r"\b(only|exclusively)\s+(open|available|hiring|considering)\s+(to|in|candidates)[^.]{0,40}"
+    r"\b(us|u\.s\.?|united states|europe|eu|uk)\b", re.I)
+_WORLDWIDE = re.compile(
+    r"\bworld-?wide\b|anywhere in the world|(work|live|hire|hiring|apply)\s+from\s+anywhere|"
+    r"\bany country\b|\binternational (candidates|applicants|team)|\bnorth america\b|\bthe americas\b|"
+    r"\bglobally distributed\b|\bfully distributed\b|\ball time ?zones\b|\bemployer of record\b|"
+    r"\bwe hire (globally|worldwide|internationally)\b", re.I)
+
+
+def remote_eligibility(desc, location_class):
+    """(ok, note) for a remote role outside Canada, based on its description."""
+    if _CANADA_EXCLUDED.search(desc):
+        return False, "remote, but says it can't hire in Canada"
+    if _CANADA_MENTIONED.search(desc):
+        return True, "Remote, mentions Canada"
+    if _REGION_ONLY.search(desc):
+        return False, "remote, but limited to the US or another region"
+    if location_class == REMOTE_GLOBAL:
+        return True, "Remote, open worldwide / Americas"
+    if _WORLDWIDE.search(desc):
+        return True, "Remote, says it hires worldwide"
+    return False, "remote with no country, and no sign it's open to Canada"
 
 
 # ---------------------------------------------------------------- resume match
@@ -680,6 +753,8 @@ def describe(job, now):
         lines.append(f"Matches {len(skills)} of your skills: {shown}")
     if job.get("years_required"):
         lines.append(f"Asks for {job['years_required']}+ yrs experience")
+    if job.get("remote_note"):
+        lines.append(f"🌎 {job['remote_note']}")
     return "\n".join(lines)
 
 
@@ -770,9 +845,17 @@ def check_resume_fit(job, cfg, skills):
             print(f"  ! couldn't fetch description for {job['url']}: {e}")
     if job["source"] == "rippling" and not job.get("posted_at"):
         job["posted_at"] = rippling_created(job["slug"], job["id"])  # same record as the description
+    loc_class = job.get("location_class")
     if not desc:
         job["skills_matched"] = None
+        if loc_class == REMOTE_UNCLEAR:
+            return False, "remote with no country, and couldn't read the description to check"
         return True, "no description (alerting anyway)"
+    if loc_class in (REMOTE_GLOBAL, REMOTE_UNCLEAR):
+        eligible, note = remote_eligibility(desc, loc_class)
+        if not eligible:
+            return False, note
+        job["remote_note"] = note
 
     job["skills_matched"] = skills.matches(desc)
     job["years_required"] = required_years(desc)
@@ -834,7 +917,10 @@ def main():
             current[job["id"]] = prev.get(job["id"], now.isoformat(timespec="seconds"))
             if job["id"] in prev:
                 continue
-            if not (titles.ok(job["title"]) and places.ok(job["location"])):
+            if not titles.ok(job["title"]):
+                continue
+            job["location_class"] = places.classify(job["location"])
+            if job["location_class"] == NO:
                 continue
             if job["posted_at"]:
                 fresh = (now - job["posted_at"]).total_seconds() / 60 <= max_age_min
