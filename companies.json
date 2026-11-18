@@ -183,7 +183,9 @@
     "thetradedesk",
     "thoughtworksreferral",
     "xai",
-    "asteraearlycareer2026"
+    "asteraearlycareer2026",
+    "questrade",
+    "postscript"
   ],
   "lever": [
     "pointclickcare",
@@ -396,7 +398,11 @@
     "teamworks",
     "fr",
     "orium",
-    "apollo"
+    "apollo",
+    "verint",
+    "thoughtworks",
+    "deepgram",
+    "elevenlabs"
   ],
   "smartrecruiters": [
     "universityhealthnetwork",
@@ -472,10 +478,26 @@
     "CROSSMARK1",
     "Dominos",
     "RenesasElectronics",
-    "WorldwideTechServices"
+    "WorldwideTechServices",
+    "Freshworks",
+    "somfygroup"
   ],
   "workable": [
-    "bridgit"
+    "bridgit",
+    "palona",
+    "weekday-1",
+    "leap-legal-software",
+    "new-flyer",
+    "nuovophotography",
+    "tecsys",
+    "responsiveads-inc",
+    "seeq",
+    "we-are-social-1",
+    "luminance-1",
+    "premium-merchant-funding-3",
+    "texas-sports-academy-main",
+    "viewline-ventures",
+    "volga-partners"
   ],
   "workday": [
     "td.wd3.myworkdayjobs.com/TD_Bank_Careers",
@@ -622,5 +644,44 @@
     "andersen.wd12.myworkdayjobs.com/Andersen_External_Career_Site",
     "datarobot.wd1.myworkdayjobs.com/DataRobot_External_Careers",
     "fccfac.wd3.myworkdayjobs.com/careers-carrieres"
+  ],
+  "rippling": [
+    "gaiias-open-positions",
+    "fluidai-medical-careers",
+    "lynx-software-technologies",
+    "nesto",
+    "dialogue-en",
+    "dialogue-fr",
+    "rippling",
+    "nestocloud",
+    "purefacts_jobs",
+    "positron",
+    "rlb-llp",
+    "icon-property-management",
+    "agilitypr",
+    "kii-health",
+    "domaine-careers",
+    "pythian",
+    "loop-careers",
+    "createmusicgroup",
+    "d-wave-quantum",
+    "cozey",
+    "ctc-medical-communications",
+    "freshbooks",
+    "gobolt",
+    "cloud-synapps-inc",
+    "aalyria-careers",
+    "camlin-careers",
+    "kraken-robotics-inc",
+    "netwrix-corporation",
+    "pcmi",
+    "sperry-rail-inc",
+    "supernova-technology",
+    "redesigncareers",
+    "peak-power-careers",
+    "motion",
+    "uniuni",
+    "citylogix",
+    "encore-auctions"
   ]
 }
