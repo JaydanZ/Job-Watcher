@@ -159,7 +159,7 @@ def main():
     names = dict(jw.COMPANY_NAMES)
     for r in added:
         label = r["label"].rstrip("!").strip()
-        if r["platform"] in jw.EXPLICIT_ONLY and ":" not in label:
+        if r["platform"] in (jw.EXPLICIT_ONLY | {"rippling"}) and ":" not in label:
             names[f"{r['platform']}:{r['slug']}"] = label
     if names != jw.COMPANY_NAMES:
         jw.COMPANY_NAMES_FILE.write_text(json.dumps(names, indent=2, sort_keys=True) + "\n")

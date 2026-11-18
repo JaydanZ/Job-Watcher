@@ -84,6 +84,10 @@ def main():
 
     with ThreadPoolExecutor(max_workers=16) as pool:
         jobs = list(pool.map(evaluate, candidates))
+    if max_days:  # some sites (Rippling) only reveal the date when the description is read
+        old = [j for j in jobs if j["date"] and (today - j["date"]).days > max_days]
+        hidden_old += len(old)
+        jobs = [j for j in jobs if j not in old]
 
     def sort_key(j):
         return (j["date"] or datetime(1970, 1, 1).date(), len(j.get("skills_matched") or []))

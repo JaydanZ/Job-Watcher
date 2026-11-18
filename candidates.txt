@@ -3328,3 +3328,188 @@ workday:aliaxis.wd3.myworkdayjobs.com/aliaxis!  # Alliaxis
 phenom:careers.hellofresh.com/global/en!  # HelloFresh
 phenom:www.yelp.careers/us/en!  # Yelp
 phenom:careers.ey.com/ey!  # EY
+
+# --- Rippling job boards (from SimplifyJobs listings) that have posted Ontario or remote-Canada roles. ! = always add ---
+rippling:citylogix!  # Citylogix Inc.
+rippling:cloud-synapps-inc!  # Cloud SynApps
+rippling:encore-auctions!  # Encore Auctions
+rippling:gaiias-open-positions!  # Gaiia
+rippling:loop-careers!  # Loop
+rippling:fluidai-medical-careers!  # NERv Technology Inc. D.B.A. FluidAI Medical
+rippling:nesto!  # nesto
+rippling:nestocloud!  # Nesto Cloud
+rippling:positron!  # Positron
+rippling:purefacts_jobs!  # PureFacts Financial Solutions
+
+# --- Other Rippling job boards. Added only if they have postings in your area now ---
+rippling:4ag  # 4AG Robotics
+rippling:aalyria-careers  # Aalyria
+rippling:acretrader-jobs  # AcreTrader
+rippling:adelaide  # Adelaide Metrics
+rippling:advocate-technologies-inc  # Advocate Technologies Inc.
+rippling:agilitypr  # Agility PR Solutions
+rippling:aapd-jobs  # American Association of People With Disabilities
+rippling:usare  # American Rare Earths
+rippling:amika-careers  # amika
+rippling:ampersand-biomedicines  # Ampersand
+rippling:ampliwork-inc  # Ampliwork, Inc
+rippling:analog-bits-inc  # Analog Bits
+rippling:anthony-sylvan-pools  # Anthony & Sylvan Pools
+rippling:apexanalytix-careers  # APEX Analytix
+rippling:ascentt  # Ascentt
+rippling:atlas-data-storage  # Atlas Data Storage
+rippling:general  # AvicenaTech
+rippling:bloomgrowth  # Bloom Growth
+rippling:blue-robotics  # Blue Robotics
+rippling:bonsairoboticsmain  # Bonsai Robotics
+rippling:boom-supersonic  # Boom Supersonic
+rippling:briowt  # Brio Water Technology
+rippling:buxtoncocareers  # Buxton 
+rippling:camlin-careers  # Camlin
+rippling:capacity  # Capacity
+rippling:cardamom  # Cardamom Health
+rippling:cintal  # Cintal
+rippling:closinglock  # Closinglock
+rippling:collieraerospace  # Collier Aerospace
+rippling:colheli  # Columbia Helicopters
+rippling:conceptplus  # Concept Plus
+rippling:cozey-internships  # Cozey
+rippling:createmusicgroup  # Create Music Group
+rippling:critical-response-group  # Critical Response Group
+rippling:cruiseplanners  # Cruise Planners
+rippling:d-wave-quantum  # D-Wave Quantum
+rippling:democratic-national-committee  # Democratic National Committee
+rippling:denari  # Denari
+rippling:dext-capital-llc  # Dext Capital
+rippling:dgrsystems  # DGR Systems
+rippling:dialogue-fr  # Dialogue
+rippling:dialogue-en  # Dialogue Health Technologies
+rippling:dlb-associates  # DLB Associates
+rippling:dlsengineering  # DLS Engineering Associates, Inc.
+rippling:door  # DOOR
+rippling:door-controls-usa  # Door Controls
+rippling:duku-ai  # Duku AI
+rippling:ega-job-board  # Eastern Glass and Aluminum
+rippling:edgehog-trading  # Edgehog Trading
+rippling:electrosonic-careers  # Electrosonic
+rippling:elevationcapital  # Elevation Capital
+rippling:energycap-external-career-page  # EnergyCap
+rippling:enludio-careers  # Enludio
+rippling:eridu-ai  # Eridu AI
+rippling:eternal  # eternal.ag
+rippling:etg  # Exploration Technology Corp.
+rippling:facereality  # Face Reality
+rippling:fieldpulse  # FieldPulse
+rippling:flexai  # FlexAI
+rippling:external-job-board  # FlexGen
+rippling:foundation-robotics  # Foundation 
+rippling:fragile  # Fragile
+rippling:free-market-health  # Free Market Health
+rippling:genlogs-corporation  # GenLogs
+rippling:hearth-careers  # GetHearth.com
+rippling:gitar-careers  # Gitar, Inc.
+rippling:glass-roots-construction-llc  # Glass Roots Construction
+rippling:gofishdigital  # Go Fish Digital
+rippling:golden  # Golden Analytics
+rippling:harness-careers  # Harness
+rippling:hunterstrategy  # Hunter Strategy
+rippling:intelliguard  # Intelliguard
+rippling:intersection  # Intersection
+rippling:ip-house  # IP House
+rippling:jitsu  # Jitsu
+rippling:kielo  # Kielo Research
+rippling:kraken-robotics-inc  # Kraken Robotics
+rippling:legitscript-careers  # Legit Script
+rippling:les-olson-it  # Les Olson IT
+rippling:lightguide  # LightGuide, Inc.
+rippling:linea-energy  # Linea Energy
+rippling:linenmaster  # LinenMaster
+rippling:logicbroker-inc  # Logicbroker, Inc.
+rippling:longevity-holdings  # Longevity Holdings
+rippling:lynx-software-technologies  # Lynx Software Technologies, Inc.
+rippling:lyte  # Lyte AI
+rippling:memryx  # MemryX
+rippling:mei-employment  # Middle East Institute
+rippling:mile-marker  # MILE MARKER
+rippling:greengas  # Mobius Renewables
+rippling:momentumcareers  # Momentum Engineering
+rippling:moon  # Moon
+rippling:msm  # MSM Inc.
+rippling:mytra  # Mytra
+rippling:nws  # National Water Services
+rippling:naxo  # NAXO
+rippling:neosigma  # NeoSigma
+rippling:nerdio-careers  # Nerdio
+rippling:netwrix-corporation  # Netwrix
+rippling:north-cloud  # North Cloud
+rippling:noviam  # Noviam Inc.
+rippling:nucleus-biologics-careers  # Nucleus Biologics
+rippling:octasic-inc  # Octasic
+rippling:omnis-corporation  # Omnis
+rippling:onware  # Onware
+rippling:opiniion  # Opiniion
+rippling:orderco  # Order.co
+rippling:overland-ai  # Overland AI
+rippling:oxbridge-health  # Oxbridge Health
+rippling:ozmocareers  # Ozmo
+rippling:plmrcareers  # Palomar Holdings
+rippling:pathos  # Pathos
+rippling:patientnow  # PatientNow
+rippling:pcmi  # PCMI
+rippling:peakhealth-ai  # Peakhealth AI Inc
+rippling:pendulum-intelligence-jobs  # Pendulum Intelligence
+rippling:petfolk  # Petfolk
+rippling:popstroke-job-board-1924  # PopStroke Holdings LLC
+rippling:praos-smart-security  # Praos Smart Security
+rippling:proper-voltage  # Proper Voltage
+rippling:rev-robotics  # REV Robotics
+rippling:reverb-careers  # Reverb
+rippling:riot-platforms-careers  # Riot Platforms
+rippling:rippling  # Rippling
+rippling:joinroot  # Root Insurance
+rippling:routeware-careers  # Routeware
+rippling:rugsusa  # RugsUSA
+rippling:sennos  # Sennos
+rippling:shadowdragon  # ShadowDragon
+rippling:sightmachine  # Sight Machine
+rippling:skytrac  # SKYTRAC
+rippling:sperry-rail-inc  # Sperry Rail
+rippling:spreeai  # SpreeAI 
+rippling:stag-careers  # STAG
+rippling:core-sound-imaging  # Studycast
+rippling:studyfetch  # StudyFetch
+rippling:supernova-technology  # Supernova Technology
+rippling:supper  # Supper
+rippling:t1d-exchange-career-center  # T1D Exchange
+rippling:talent-101-inc  # Talent 101 Inc
+rippling:tavernresearch  # Tavern Research
+rippling:redesigncareers  # The Redesign Group
+rippling:theguarantors-open-positions  # TheGuarantors
+rippling:tive-careers  # Tive
+rippling:topdoglaw  # TopDog Law
+rippling:torus  # Torus
+rippling:truepointcareers  # Truepoint Wealth Counsel
+rippling:jobs-at-tuesday-health  # Tuesday Health
+rippling:uhin-careers  # UHIN
+rippling:veryable-careers  # Veryable
+rippling:vortex-companies-llc  # Vortex Companies, LLC
+rippling:whc  # Whc
+rippling:wdscareers  # Wildfire Defense Systems, Inc.
+rippling:zededa  # Zededa
+rippling:zuckerman-investment-group  # Zuckerman Investment Group
+
+# --- Canadian Rippling boards found by web search ---
+rippling:peak-power-careers!  # Peak Power
+rippling:motion  # Motion
+rippling:uniuni  # UniUni
+rippling:cozey  # Cozey
+rippling:kii-health  # Kii Health
+rippling:ctc-medical-communications  # CTC Communications
+rippling:icon-property-management  # Icon Property Management
+rippling:prepad  # Prepad
+rippling:just-appraised-jobs  # Just Appraised
+rippling:domaine-careers  # Domaine
+rippling:findhelp  # findhelp
+rippling:liveops  # Liveops
+rippling:solidus-resources  # Solidus Resources
+rippling:rlb-llp  # RLB

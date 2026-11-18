@@ -231,6 +231,61 @@ def fetch_smartrecruiters_description(slug, job_id):
     return html_to_text(" ".join(s.get("text", "") for s in sections if isinstance(s, dict)))
 
 
+# ---- Rippling (ats.rippling.com/<slug>/jobs) ------------------------------------------
+# The board list has only uuid, name, department, url and workLocation, and lists a job
+# once per location. Each job's own record adds the description and createdOn.
+# Board slugs are case-sensitive.
+
+_rippling_details = {}  # (slug, uuid) -> job record
+
+
+def fetch_rippling(slug):
+    data = get_json(f"https://api.rippling.com/platform/api/ats/v1/board/{slug}/jobs")
+    rows = data.get("items", []) if isinstance(data, dict) else data
+    jobs = {}
+    for j in rows:
+        uid = j.get("uuid") or j.get("id")
+        if not uid:
+            continue
+        loc = (j.get("workLocation") or {}).get("label") or ""
+        if uid in jobs:  # same job listed again for another location
+            if loc and loc not in jobs[uid]["location"]:
+                jobs[uid]["location"] += f" | {loc}"
+            continue
+        jobs[uid] = {
+            "id": uid,
+            "source": "rippling", "slug": slug,
+            "company": pretty_name(slug),
+            "title": j.get("name", ""),
+            "location": loc,
+            "url": j.get("url") or f"https://ats.rippling.com/{slug}/jobs/{uid}",
+            "posted_at": None,  # only in each job's own record (createdOn); see below
+            "description": None,
+        }
+    return list(jobs.values())
+
+
+def rippling_detail(slug, uid):
+    if (slug, uid) not in _rippling_details:
+        _rippling_details[(slug, uid)] = get_json(
+            f"https://api.rippling.com/platform/api/ats/v1/board/{slug}/jobs/{uid}")
+    return _rippling_details[(slug, uid)]
+
+
+def fetch_rippling_description(slug, uid):
+    d = rippling_detail(slug, uid)
+    desc = d.get("description") or {}
+    parts = [desc.get("role"), desc.get("company")] if isinstance(desc, dict) else [desc]
+    return html_to_text(" ".join(p for p in parts if isinstance(p, str)))
+
+
+def rippling_created(slug, uid):
+    try:
+        return parse_time(rippling_detail(slug, uid).get("createdOn"))
+    except Exception:
+        return None
+
+
 # ---- Phenom career sites (e.g. careers.manulife.com, careers.opentext.com) -----------
 # These have no public API, but each search page embeds its results as JSON
 # ("phApp.ddo"). companies.json entries look like "careers.manulife.com/global/en".
@@ -438,7 +493,7 @@ def fetch_workday_description(spec, path):
 FETCHERS = {
     "greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch_ashby,
     "workable": fetch_workable, "smartrecruiters": fetch_smartrecruiters,
-    "phenom": fetch_phenom, "workday": fetch_workday,
+    "phenom": fetch_phenom, "workday": fetch_workday, "rippling": fetch_rippling,
 }
 DESCRIPTION_FETCHERS = {
     "greenhouse": fetch_greenhouse_description,
@@ -446,6 +501,7 @@ DESCRIPTION_FETCHERS = {
     "smartrecruiters": fetch_smartrecruiters_description,
     "phenom": fetch_phenom_description,
     "workday": fetch_workday_description,
+    "rippling": fetch_rippling_description,
 }
 # Platforms whose boards can't be guessed from a company name (the finder skips them)
 EXPLICIT_ONLY = {"phenom", "workday"}
@@ -582,7 +638,13 @@ def human_age(posted_at, now):
     if not posted_at:
         return "just appeared"
     mins = int((now - posted_at).total_seconds() // 60)
-    return "just now" if mins < 1 else f"{mins} min ago"
+    if mins < 1:
+        return "just now"
+    if mins < 120:
+        return f"{mins} min ago"
+    if mins < 48 * 60:
+        return f"{mins // 60} hours ago"
+    return f"{mins // (24 * 60)} days ago"
 
 
 def send_ntfy(server, topic, title, message, click=None, tags=None, priority=3):
@@ -706,6 +768,8 @@ def check_resume_fit(job, cfg, skills):
             desc = DESCRIPTION_FETCHERS[job["source"]](job["slug"], job["id"])
         except Exception as e:
             print(f"  ! couldn't fetch description for {job['url']}: {e}")
+    if job["source"] == "rippling" and not job.get("posted_at"):
+        job["posted_at"] = rippling_created(job["slug"], job["id"])  # same record as the description
     if not desc:
         job["skills_matched"] = None
         return True, "no description (alerting anyway)"
