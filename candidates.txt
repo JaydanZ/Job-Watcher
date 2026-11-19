@@ -3862,3 +3862,61 @@ Zemoso
 ZenRows
 Zignaly
 ZooTools
+
+# --- BambooHR job boards. ! = Ontario employer, always add. Others added only if hiring in your area now ---
+bamboohr:adidev  # Adidev Technologies Inc
+bamboohr:alkira  # Alkira
+bamboohr:alleghenycounty  # Allegheny County
+bamboohr:apollomce  # Apollo Mission Critical Engineering
+bamboohr:armstrongfluidtechnology!  # Armstrong Fluid Technology
+bamboohr:asuresoftware  # Asure
+bamboohr:onearc  # BAE Systems OneArc USA, Inc
+bamboohr:berkshiregrey  # Berkshire Grey
+bamboohr:binsentry!  # BinSentry
+bamboohr:bga  # BowerGroupAsia
+bamboohr:bravebison  # BraveBison
+bamboohr:calpionplutus  # Calpion/Plutus Health
+bamboohr:conetec  # ConeTec Group
+bamboohr:contentguru  # Content Guru
+bamboohr:dcbel  # dcbel Inc
+bamboohr:dubak  # Dubak Electrical
+bamboohr:eposnowgroup  # Epos Now Group
+bamboohr:euna!  # EUNA Solutions
+bamboohr:expedock  # Expedock
+bamboohr:fullbay  # Fullbay
+bamboohr:geospectrum  # GeoSpectrum Technologies
+bamboohr:glitch  # Glitch
+bamboohr:guidesmiths  # GuideSmiths
+bamboohr:ihlgroup  # IHL Group
+bamboohr:lexical  # Lexical Intelligence
+bamboohr:lunaroutpost  # Lunar Outpost
+bamboohr:marqueebrands  # Marquee Brands
+bamboohr:mujin  # Mujin
+bamboohr:nexthopai  # Nexthop.ai
+bamboohr:nomadgcs  # Nomad GCS
+bamboohr:optionsit  # Options Technology
+bamboohr:palantir  # Palantir.net
+bamboohr:pencor  # Pencor Services
+bamboohr:psware  # Performance Software
+bamboohr:phihong  # PHIHONG USA
+bamboohr:pictonmahoney!  # Picton Mahoney Asset Management
+bamboohr:profoundmedical!  # Profound Medical
+bamboohr:quiktrakcontractor  # Quiktrak
+bamboohr:ruekertmielke  # Ruekert & Mielke
+bamboohr:safransed  # Safran
+bamboohr:selectorsoftware  # Selector Software
+bamboohr:specteraerospace  # Specter Aerospace
+bamboohr:subseacraft  # Subsea Craft
+bamboohr:tggaccounting  # TGG Accounting
+bamboohr:tnuck  # Tuckernuck
+bamboohr:unitedsmarttech  # United Smart Tech
+bamboohr:upike  # University of Pikeville
+bamboohr:versafile1  # VersaFile
+bamboohr:vestalcorporation  # Vestal Corporation
+
+# --- Ontario employers seen posting on BambooHR (the finder tries likely addresses) ---
+Pontosense
+Northern Commerce
+Veterinary Purchasing
+Kobalt
+RedNucleus

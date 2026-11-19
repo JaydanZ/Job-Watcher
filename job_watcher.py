@@ -279,6 +279,58 @@ def fetch_rippling_description(slug, uid):
     return html_to_text(" ".join(p for p in parts if isinstance(p, str)))
 
 
+# ---- BambooHR (<company>.bamboohr.com/careers) ----------------------------------------
+# The list gives id, jobOpeningName, departmentLabel, location / atsLocation and isRemote.
+# Each job's own record adds the description and datePosted.
+
+_bamboohr_details = {}  # (slug, id) -> job record
+
+
+def fetch_bamboohr(slug):
+    data = get_json(f"https://{slug}.bamboohr.com/careers/list")
+    jobs = []
+    for j in (data.get("result") or []) if isinstance(data, dict) else []:
+        jid = str(j.get("id") or "")
+        if not jid:
+            continue
+        loc = j.get("location") or {}
+        ats = j.get("atsLocation") or {}
+        place = join_location(ats.get("city") or loc.get("city"),
+                              ats.get("province") or ats.get("state") or loc.get("state"),
+                              ats.get("country"))
+        remote = j.get("isRemote") is True or str(j.get("locationType")) == "1"
+        if remote:
+            place = f"{place} (Remote)".strip() if place else "Remote"
+        jobs.append({
+            "id": jid,
+            "source": "bamboohr", "slug": slug,
+            "company": pretty_name(slug),
+            "title": (j.get("jobOpeningName") or "").strip(),
+            "location": place,
+            "url": f"https://{slug}.bamboohr.com/careers/{jid}",
+            "posted_at": None,  # only in each job's own record (datePosted)
+            "description": None,
+        })
+    return jobs
+
+
+def bamboohr_detail(slug, jid):
+    if (slug, jid) not in _bamboohr_details:
+        _bamboohr_details[(slug, jid)] = get_json(f"https://{slug}.bamboohr.com/careers/{jid}/detail")
+    return _bamboohr_details[(slug, jid)]
+
+
+def fetch_bamboohr_description(slug, jid):
+    return html_to_text(find_key(bamboohr_detail(slug, jid), "description") or "")
+
+
+def bamboohr_posted(slug, jid):
+    try:
+        return str(find_key(bamboohr_detail(slug, jid), "datePosted") or "")[:10] or None
+    except Exception:
+        return None
+
+
 def rippling_created(slug, uid):
     try:
         return parse_time(rippling_detail(slug, uid).get("createdOn"))
@@ -494,6 +546,7 @@ FETCHERS = {
     "greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch_ashby,
     "workable": fetch_workable, "smartrecruiters": fetch_smartrecruiters,
     "phenom": fetch_phenom, "workday": fetch_workday, "rippling": fetch_rippling,
+    "bamboohr": fetch_bamboohr,
 }
 DESCRIPTION_FETCHERS = {
     "greenhouse": fetch_greenhouse_description,
@@ -502,6 +555,7 @@ DESCRIPTION_FETCHERS = {
     "phenom": fetch_phenom_description,
     "workday": fetch_workday_description,
     "rippling": fetch_rippling_description,
+    "bamboohr": fetch_bamboohr_description,
 }
 # Platforms whose boards can't be guessed from a company name (the finder skips them)
 EXPLICIT_ONLY = {"phenom", "workday"}
@@ -843,8 +897,11 @@ def check_resume_fit(job, cfg, skills):
             desc = DESCRIPTION_FETCHERS[job["source"]](job["slug"], job["id"])
         except Exception as e:
             print(f"  ! couldn't fetch description for {job['url']}: {e}")
+    # Some sites only give the posting date in the same record as the description
     if job["source"] == "rippling" and not job.get("posted_at"):
-        job["posted_at"] = rippling_created(job["slug"], job["id"])  # same record as the description
+        job["posted_at"] = rippling_created(job["slug"], job["id"])
+    if job["source"] == "bamboohr" and not job.get("posted_date"):
+        job["posted_date"] = bamboohr_posted(job["slug"], job["id"])
     loc_class = job.get("location_class")
     if not desc:
         job["skills_matched"] = None
