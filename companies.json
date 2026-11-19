@@ -455,7 +455,8 @@
     "chartahealth",
     "eightsleep",
     "revel",
-    "sieve"
+    "sieve",
+    "quantcast"
   ],
   "smartrecruiters": [
     "universityhealthnetwork",
@@ -739,5 +740,36 @@
     "uniuni",
     "citylogix",
     "encore-auctions"
+  ],
+  "bamboohr": [
+    "binsentry",
+    "euna",
+    "ratehub",
+    "armstrongfluidtechnology",
+    "quiktrakcontractor",
+    "pictonmahoney",
+    "pontosense",
+    "rednucleus",
+    "avidbots",
+    "eventmobi",
+    "profoundmedical",
+    "quartermaster",
+    "signal1",
+    "conetec",
+    "arctiq",
+    "rocketdoctor",
+    "versafile1",
+    "elevenx",
+    "rebel",
+    "northern",
+    "fundthrough",
+    "maropost",
+    "martello",
+    "kobalt",
+    "plurilock",
+    "nymi",
+    "vexxhost",
+    "normative",
+    "geospectrum"
   ]
 }
