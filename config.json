@@ -35,6 +35,7 @@
   "career_site_search_terms": ["developer", "engineer"],
   "career_site_max_pages": 5,
   "workday_check_every_n_runs": 8,
+  "workday_pause_hours": 2,
 
   "resume_match": {
     "min_skills_matched": 2,

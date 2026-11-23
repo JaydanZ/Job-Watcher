@@ -97,7 +97,7 @@ def fetch_greenhouse_description(slug, job_id):
 
 
 def fetch_lever(slug):
-    data = get_json(f"https://api.lever.co/v0/postings/{slug}?mode=json")
+    data = get_json(f"https://api.lever.co/v0/postings/{slug}?mode=json", timeout=60)  # some boards are huge
     jobs = []
     for j in data:
         cats = j.get("categories") or {}
@@ -362,6 +362,7 @@ def configure(cfg):
     SEARCH_TERMS = cfg.get("career_site_search_terms", SEARCH_TERMS)
     MAX_PAGES = cfg.get("career_site_max_pages", MAX_PAGES)
     TITLE_OK = TitleFilter(cfg).ok
+    _wd_blocked.clear()
     if COMPANY_NAMES_FILE.exists():
         COMPANY_NAMES = json.loads(COMPANY_NAMES_FILE.read_text())
 
@@ -466,8 +467,17 @@ _wd_clock = threading.Lock()
 _wd_last = [0.0]
 
 
+class WorkdayBlocked(Exception):
+    """Workday kept answering 429: stop asking it for the rest of this run."""
+
+
+_wd_blocked = threading.Event()
+
+
 def workday_request(fn, *args):
     for attempt in range(WORKDAY_RETRIES + 1):
+        if _wd_blocked.is_set():
+            raise WorkdayBlocked()
         with _wd_slots:
             with _wd_clock:  # keep a minimum gap between any two Workday requests
                 wait = WORKDAY_MIN_GAP - (time.monotonic() - _wd_last[0])
@@ -477,8 +487,11 @@ def workday_request(fn, *args):
             try:
                 return fn(*args)
             except urllib.error.HTTPError as e:
-                if e.code not in (429, 503) or attempt == WORKDAY_RETRIES:
+                if e.code not in (429, 503):
                     raise
+                if attempt == WORKDAY_RETRIES:
+                    _wd_blocked.set()  # Workday is refusing us: skip the remaining sites
+                    raise WorkdayBlocked() from e
                 retry_after = (e.headers.get("Retry-After") if e.headers else None) or ""
                 delay = min(float(retry_after), 60) if retry_after.isdigit() else 5 * 2 ** attempt
         time.sleep(delay)  # back off without holding a slot
@@ -905,22 +918,29 @@ def load_json(path, default):
     return default
 
 
+WORKDAY_BLOCKED = "Workday is refusing requests right now"
+
+
 def fetch_one(source, slug):
-    try:
-        jobs = FETCHERS[source](slug)
-        name = COMPANY_NAMES.get(f"{source}:{slug}")
-        if name:
-            for j in jobs:
-                j["company"] = name
-        return source, slug, jobs, None
-    except urllib.error.HTTPError as e:
-        if e.code == 429:
-            return source, slug, None, "rate limited (HTTP 429), will try again next run"
-        if e.code in (404, 410):
-            return source, slug, None, f"HTTP {e.code} (board not found, check the slug)"
-        return source, slug, None, f"HTTP {e.code}"
-    except Exception as e:
-        return source, slug, None, str(e)
+    for attempt in range(2):
+        try:
+            jobs = FETCHERS[source](slug)
+            name = COMPANY_NAMES.get(f"{source}:{slug}")
+            if name:
+                for j in jobs:
+                    j["company"] = name
+            return source, slug, jobs, None
+        except WorkdayBlocked:
+            return source, slug, None, WORKDAY_BLOCKED
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                return source, slug, None, "rate limited (HTTP 429), will try again next run"
+            if e.code in (404, 410):
+                return source, slug, None, f"HTTP {e.code} (board not found, check the slug)"
+            return source, slug, None, f"HTTP {e.code}"
+        except Exception as e:  # timeouts and dropped connections: try once more
+            if attempt == 1:
+                return source, slug, None, str(e)
 
 
 def check_resume_fit(job, cfg, skills):
@@ -1000,17 +1020,43 @@ def main():
     every = max(1, int(cfg.get("workday_check_every_n_runs", 4)))
     rotating = [t for t in tasks if t[0] == "workday"]
     resting = {t for t in rotating if zlib.crc32(f"{t[0]}:{t[1]}".encode()) % every != run_no % every}
+    # After Workday refuses us, leave it alone for a while (2h, then 4h, 8h... up to 24h)
+    pause_until = meta.get("workday_paused_until")
+    workday_paused = bool(pause_until and now < datetime.fromisoformat(pause_until))
+    if workday_paused:
+        resting = set(rotating)
     tasks = [t for t in tasks if t not in resting]
 
     with ThreadPoolExecutor(max_workers=16) as pool:
         results = list(pool.map(lambda t: fetch_one(*t), tasks))
 
-    candidates, failures = [], []
+    candidates, failures, workday_refused, workday_ok = [], [], 0, 0
+    for source, slug, jobs, err in results:
+        key = f"{source}:{slug}"
+        if source == "workday":
+            if err == WORKDAY_BLOCKED or (err or "").startswith("rate limited"):
+                workday_refused += 1
+            elif not err:
+                workday_ok += 1
+        if err:
+            if err != WORKDAY_BLOCKED and not (source == "workday" and err.startswith("rate limited")):
+                failures.append(f"{key}: {err}")
+            continue  # keep its previous seen-state so nothing re-alerts next run
+
+    # Workday pause bookkeeping
+    if workday_refused:
+        strikes = meta.get("workday_strikes", 0) + 1
+        hours = min(float(cfg.get("workday_pause_hours", 2)) * 2 ** (strikes - 1), 24)
+        meta["workday_strikes"] = strikes
+        meta["workday_paused_until"] = (now + timedelta(hours=hours)).isoformat(timespec="seconds")
+    elif workday_ok:
+        meta.pop("workday_strikes", None)
+        meta.pop("workday_paused_until", None)
+
     for source, slug, jobs, err in results:
         key = f"{source}:{slug}"
         if err:
-            failures.append(f"{key}: {err}")
-            continue  # keep its previous seen-state so nothing re-alerts next run
+            continue
 
         prev = seen.get(key)
         first_time = prev is None  # company just added: seed it quietly
@@ -1043,10 +1089,17 @@ def main():
         passes, reason = check_resume_fit(job, cfg, skills)
         (matches if passes else skipped).append((job, reason))
 
-    print(f"Checked {len(tasks) - len(failures)}/{len(tasks)} boards at {now:%Y-%m-%d %H:%M} UTC")
+    checked_ok = sum(1 for r in results if not r[3])
+    print(f"Checked {checked_ok}/{len(tasks)} boards at {now:%Y-%m-%d %H:%M} UTC")
     if rotating:
-        print(f"  (Workday: {len(rotating) - len(resting)} of {len(rotating)} sites this run; "
-              f"each is checked every {every} runs)")
+        if workday_paused:
+            print(f"  (Workday: paused until {pause_until[:16].replace('T', ' ')} UTC after it refused requests)")
+        else:
+            print(f"  (Workday: {workday_ok} of {len(rotating) - len(resting)} scheduled sites read this run; "
+                  f"each site is scheduled every {every} runs)")
+        if workday_refused:
+            print(f"  ! Workday refused requests (HTTP 429) and {workday_refused} sites were skipped. "
+                  f"Pausing Workday until {meta['workday_paused_until'][:16].replace('T', ' ')} UTC.")
     for f in failures:
         print(f"  ! {f}")
     print(f"{len(matches)} new matching job(s)")
