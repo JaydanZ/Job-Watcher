@@ -17,7 +17,10 @@ import json
 import os
 import re
 import sys
+import threading
+import time
 import urllib.error
+import zlib
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -452,6 +455,34 @@ def fetch_phenom_description(spec, job_id):
 
 _workday_details = {}  # (spec, externalPath) -> jobPostingInfo, reused for descriptions
 
+# All Workday sites share Workday's servers, which answer "429 Too Many Requests" when
+# hit too fast. So Workday requests are paced: a few at a time, a short gap between
+# them, and a few retries (honouring Retry-After) when Workday asks to slow down.
+WORKDAY_CONCURRENCY = 2
+WORKDAY_MIN_GAP = 0.6     # seconds between Workday requests
+WORKDAY_RETRIES = 3
+_wd_slots = threading.Semaphore(WORKDAY_CONCURRENCY)
+_wd_clock = threading.Lock()
+_wd_last = [0.0]
+
+
+def workday_request(fn, *args):
+    for attempt in range(WORKDAY_RETRIES + 1):
+        with _wd_slots:
+            with _wd_clock:  # keep a minimum gap between any two Workday requests
+                wait = WORKDAY_MIN_GAP - (time.monotonic() - _wd_last[0])
+                if wait > 0:
+                    time.sleep(wait)
+                _wd_last[0] = time.monotonic()
+            try:
+                return fn(*args)
+            except urllib.error.HTTPError as e:
+                if e.code not in (429, 503) or attempt == WORKDAY_RETRIES:
+                    raise
+                retry_after = (e.headers.get("Retry-After") if e.headers else None) or ""
+                delay = min(float(retry_after), 60) if retry_after.isdigit() else 5 * 2 ** attempt
+        time.sleep(delay)  # back off without holding a slot
+
 
 def post_json(url, body, timeout=25):
     req = urllib.request.Request(
@@ -486,7 +517,7 @@ def workday_detail(spec, path):
     key = (spec, path)
     if key not in _workday_details:
         host, tenant, site = workday_parts(spec)
-        data = get_json_ua(f"https://{host}/wday/cxs/{tenant}/{site}{path}")
+        data = workday_request(get_json_ua, f"https://{host}/wday/cxs/{tenant}/{site}{path}")
         _workday_details[key] = data.get("jobPostingInfo") or {}
     return _workday_details[key]
 
@@ -505,7 +536,7 @@ def fetch_workday(spec):
     for term in SEARCH_TERMS:
         total = None
         for page_no in range(MAX_PAGES):
-            data = post_json(api, {"appliedFacets": {}, "limit": 20, "offset": page_no * 20,
+            data = workday_request(post_json, api, {"appliedFacets": {}, "limit": 20, "offset": page_no * 20,
                                    "searchText": term})
             if total is None:
                 total = data.get("total") or 0  # some sites only report it on page 1
@@ -883,7 +914,11 @@ def fetch_one(source, slug):
                 j["company"] = name
         return source, slug, jobs, None
     except urllib.error.HTTPError as e:
-        return source, slug, None, f"HTTP {e.code} (check the slug)"
+        if e.code == 429:
+            return source, slug, None, "rate limited (HTTP 429), will try again next run"
+        if e.code in (404, 410):
+            return source, slug, None, f"HTTP {e.code} (board not found, check the slug)"
+        return source, slug, None, f"HTTP {e.code}"
     except Exception as e:
         return source, slug, None, str(e)
 
@@ -956,6 +991,17 @@ def main():
     now = datetime.now(timezone.utc)
 
     tasks = [(src, slug) for src, slugs in companies.items() if src in FETCHERS for slug in slugs]
+
+    # Workday sites take turns: each run checks 1/N of them (N = workday_check_every_n_runs),
+    # so each is checked every N runs. Skipped ones keep their saved state.
+    meta = seen.setdefault("_meta", {})
+    run_no = meta.get("run", 0)
+    meta["run"] = run_no + 1
+    every = max(1, int(cfg.get("workday_check_every_n_runs", 4)))
+    rotating = [t for t in tasks if t[0] == "workday"]
+    resting = {t for t in rotating if zlib.crc32(f"{t[0]}:{t[1]}".encode()) % every != run_no % every}
+    tasks = [t for t in tasks if t not in resting]
+
     with ThreadPoolExecutor(max_workers=16) as pool:
         results = list(pool.map(lambda t: fetch_one(*t), tasks))
 
@@ -998,6 +1044,9 @@ def main():
         (matches if passes else skipped).append((job, reason))
 
     print(f"Checked {len(tasks) - len(failures)}/{len(tasks)} boards at {now:%Y-%m-%d %H:%M} UTC")
+    if rotating:
+        print(f"  (Workday: {len(rotating) - len(resting)} of {len(rotating)} sites this run; "
+              f"each is checked every {every} runs)")
     for f in failures:
         print(f"  ! {f}")
     print(f"{len(matches)} new matching job(s)")
