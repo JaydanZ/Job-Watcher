@@ -49,6 +49,10 @@ def main():
     today = now.date()
 
     tasks = [(src, slug) for src, slugs in companies.items() if src in jw.FETCHERS for slug in slugs]
+    workday_skipped = 0
+    if not jw.workday_runs_here(cfg):  # Workday refuses GitHub; it's checked from your computer
+        workday_skipped = sum(1 for t in tasks if t[0] == "workday")
+        tasks = [t for t in tasks if t[0] != "workday"]
     with ThreadPoolExecutor(max_workers=16) as pool:
         results = list(pool.map(lambda t: jw.fetch_one(*t), tasks))
     failures = [f"{s}:{g}: {e}" for s, g, _, e in results if e]
@@ -126,7 +130,9 @@ def main():
         "Newest first. \"Posted\" is the date the company's job board reports; "
         "reposted jobs can look newer than they are."
         + (f" {hidden_old} postings older than {max_days} days were hidden "
-           "(change `max_posting_age_days` in config.json)." if hidden_old else ""), "",
+           "(change `max_posting_age_days` in config.json)." if hidden_old else "")
+        + (f" The {workday_skipped} Workday companies aren't included: they're checked from "
+           "your computer." if workday_skipped else ""), "",
         "## Good fits", "",
         "| Posted | Company | Role | Location | Your skills it mentions | Yrs asked |",
         "|---|---|---|---|---|---|",

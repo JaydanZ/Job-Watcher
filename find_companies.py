@@ -98,6 +98,8 @@ def main():
     already = {(p, s.lower()) for p, slugs in companies.items() for s in slugs}
 
     tasks = [t for t in read_candidates() if (t[1], t[2].lower()) not in already]
+    if not jw.workday_runs_here(cfg):  # Workday refuses GitHub's servers
+        tasks = [t for t in tasks if t[1] != "workday"]
     tasks = list(dict.fromkeys(tasks))
     print(f"Trying {len(tasks)} name/platform combinations...")
     with ThreadPoolExecutor(max_workers=24) as pool:

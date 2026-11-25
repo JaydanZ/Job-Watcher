@@ -34,6 +34,8 @@
 
   "career_site_search_terms": ["developer", "engineer"],
   "career_site_max_pages": 5,
+  "workday_runs_on": "local",
+  "workday_local_check_every_n_runs": 2,
   "workday_check_every_n_runs": 8,
   "workday_pause_hours": 2,
 

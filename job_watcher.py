@@ -857,7 +857,7 @@ def describe(job, now):
 
 
 def notify(jobs, cfg, now):
-    topic = os.environ.get("NTFY_TOPIC", "").strip()
+    topic = ntfy_topic()
     if not topic:
         print("NTFY_TOPIC not set, skipping notifications.")
         return
@@ -993,12 +993,85 @@ def check_resume_fit(job, cfg, skills):
     return True, ""
 
 
+ON_GITHUB = os.environ.get("GITHUB_ACTIONS") == "true"
+SYNC_FILES = ("config.json", "companies.json", "company_names.json")
+
+
+def workday_runs_here(cfg):
+    """With "workday_runs_on": "local", Workday is checked from your own computer
+    (Workday refuses requests from GitHub's servers), so GitHub runs skip it."""
+    return not (ON_GITHUB and cfg.get("workday_runs_on") == "local")
+
+
+def ntfy_topic():
+    topic = os.environ.get("NTFY_TOPIC", "").strip()
+    topic_file = ROOT / "ntfy_topic.txt"  # used on your computer instead of a GitHub secret
+    if not topic and topic_file.exists():
+        topic = topic_file.read_text(encoding="utf-8").strip()
+    return topic
+
+
+def sync_from_github():
+    """On your computer: refresh settings and company lists from your GitHub repo, so
+    companies the finder adds are picked up. Keeps the local copies if it can't."""
+    url_file = ROOT / "sync_url.txt"
+    if not url_file.exists():
+        return
+    base = url_file.read_text(encoding="utf-8").strip().rstrip("/") + "/"
+    for name in SYNC_FILES:
+        try:
+            req = urllib.request.Request(base + name, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                text = resp.read().decode("utf-8")
+            json.loads(text)  # only keep it if it's valid
+            (ROOT / name).write_text(text, encoding="utf-8")
+        except Exception as e:
+            print(f"  (couldn't update {name} from GitHub, using the local copy: {e})")
+
+
 def main():
+    global SEEN_FILE, LOG_FILE
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true",
                     help="print matches only; no notifications, no state saved")
+    ap.add_argument("--local-workday", action="store_true",
+                    help="run on your own computer: check only Workday, with its own files")
+    ap.add_argument("--only", help="comma-separated platforms to check, e.g. workday")
+    ap.add_argument("--state", help="seen-jobs file (default seen.json)")
+    ap.add_argument("--found-log", help="alert log file (default jobs_found.csv)")
+    ap.add_argument("--output", help="append this run's log to a file instead of the screen")
     args = ap.parse_args()
+    if args.local_workday:
+        args.only = args.only or "workday"
+        args.state = args.state or "workday_seen.json"
+        args.found_log = args.found_log or "workday_jobs_found.csv"
+        args.output = args.output or "workday_log.txt"
+    if args.state:
+        SEEN_FILE = ROOT / args.state
+    if args.found_log:
+        LOG_FILE = ROOT / args.found_log
 
+    if not args.output:
+        return run(args)
+    out = ROOT / args.output
+    if out.exists() and out.stat().st_size > 1_000_000:  # keep the log file small
+        out.replace(out.with_suffix(".old.txt"))
+    old_out, old_err = sys.stdout, sys.stderr  # (both are None under pythonw on Windows)
+    with out.open("a", encoding="utf-8") as f:
+        sys.stdout = sys.stderr = f
+        try:
+            run(args)
+        except BaseException:
+            import traceback
+            traceback.print_exc()
+        finally:
+            print("", flush=True)
+            sys.stdout, sys.stderr = old_out, old_err
+
+
+def run(args):
+    if args.local_workday:
+        sync_from_github()
     cfg = load_json(CONFIG_FILE, None)
     companies = load_json(COMPANIES_FILE, None)
     if cfg is None or companies is None:
@@ -1011,13 +1084,21 @@ def main():
     now = datetime.now(timezone.utc)
 
     tasks = [(src, slug) for src, slugs in companies.items() if src in FETCHERS for slug in slugs]
+    if args.only:
+        only = {p.strip() for p in args.only.split(",")}
+        tasks = [t for t in tasks if t[0] in only]
+    workday_elsewhere = not workday_runs_here(cfg) and any(t[0] == "workday" for t in tasks)
+    if workday_elsewhere:
+        tasks = [t for t in tasks if t[0] != "workday"]
 
-    # Workday sites take turns: each run checks 1/N of them (N = workday_check_every_n_runs),
-    # so each is checked every N runs. Skipped ones keep their saved state.
+    # Workday sites take turns: each run checks 1/N of them (N = workday_check_every_n_runs,
+    # or workday_local_check_every_n_runs on your computer), so each is checked every N runs.
+    # Skipped ones keep their saved state.
     meta = seen.setdefault("_meta", {})
     run_no = meta.get("run", 0)
     meta["run"] = run_no + 1
-    every = max(1, int(cfg.get("workday_check_every_n_runs", 4)))
+    every_key = "workday_check_every_n_runs" if ON_GITHUB else "workday_local_check_every_n_runs"
+    every = max(1, int(cfg.get(every_key, cfg.get("workday_check_every_n_runs", 4))))
     rotating = [t for t in tasks if t[0] == "workday"]
     resting = {t for t in rotating if zlib.crc32(f"{t[0]}:{t[1]}".encode()) % every != run_no % every}
     # After Workday refuses us, leave it alone for a while (2h, then 4h, 8h... up to 24h)
@@ -1091,6 +1172,8 @@ def main():
 
     checked_ok = sum(1 for r in results if not r[3])
     print(f"Checked {checked_ok}/{len(tasks)} boards at {now:%Y-%m-%d %H:%M} UTC")
+    if workday_elsewhere:
+        print("  (Workday companies are checked from your computer, not here)")
     if rotating:
         if workday_paused:
             print(f"  (Workday: paused until {pause_until[:16].replace('T', ' ')} UTC after it refused requests)")
