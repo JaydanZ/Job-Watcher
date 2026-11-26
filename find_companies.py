@@ -11,6 +11,7 @@ Usage:
 
 Lines in candidates.txt can be:
     Company Name         -> several likely slugs are tried on every platform
+    Company Name @ site.com -> also tries the website's name ("toasttab" for toasttab.com)
     lever:roserocket     -> tests exactly that board; added if it has jobs in your area now
     lever:roserocket!    -> tests exactly that board; added whenever it exists, even with
                             nothing in your area today (for companies known to hire here)
@@ -58,10 +59,26 @@ def read_candidates():
             label = raw.split("#", 1)[1].strip() if "#" in raw else line
             tasks.append((label + m.group(3), m.group(1), m.group(2)))
             continue
-        for slug in slug_variants(line):
+        name, _, site = line.partition(" @ ")
+        name = name.strip()
+        slugs = slug_variants(name)
+        stem = website_stem(site)
+        if stem and stem not in slugs:
+            slugs.append(stem)
+        for slug in slugs:
             for platform in (p for p in jw.FETCHERS if p not in jw.EXPLICIT_ONLY):
-                tasks.append((line, platform, slug))
+                tasks.append((name, platform, slug))
     return tasks
+
+
+def website_stem(site):
+    """'pos.toasttab.com' -> 'toasttab'; job boards are often named after the website."""
+    host = re.sub(r"^https?://", "", (site or "").strip().lower()).split("/")[0]
+    parts = [p for p in host.split(".") if p]
+    if len(parts) < 2:
+        return ""
+    stem = parts[-3] if len(parts) >= 3 and parts[-2] in ("co", "com", "org", "net") and len(parts[-1]) == 2 else parts[-2]
+    return stem if len(stem) >= 3 and re.fullmatch(r"[a-z0-9-]+", stem) else ""
 
 
 def probe(task, titles, places):
@@ -98,7 +115,15 @@ def main():
     already = {(p, s.lower()) for p, slugs in companies.items() for s in slugs}
 
     tasks = [t for t in read_candidates() if (t[1], t[2].lower()) not in already]
-    if not jw.workday_runs_here(cfg):  # Workday refuses GitHub's servers
+    unchecked = []  # Workday sites added without checking (see below)
+    if not jw.workday_runs_here(cfg):
+        # Workday refuses GitHub's servers, so it can't be checked from here. Sites marked
+        # with ! come from real job links, so add those as-is; your computer checks them.
+        for label, platform, slug in dict.fromkeys(t for t in tasks if t[1] == "workday"):
+            if label.endswith("!"):
+                unchecked.append({"label": label, "platform": platform, "slug": slug,
+                                  "board_name": label.rstrip("!").strip(), "total": "?",
+                                  "local": "?", "dev": "?", "dev_titles": []})
         tasks = [t for t in tasks if t[1] != "workday"]
     tasks = list(dict.fromkeys(tasks))
     print(f"Trying {len(tasks)} name/platform combinations...")
@@ -119,7 +144,7 @@ def main():
     results = sorted(unique.values(), key=lambda r: (r["dev"], r["local"]), reverse=True)
 
     keep = lambda r: r["local"] >= args.min_local_jobs or r["label"].endswith("!")
-    added = [r for r in results if keep(r)]
+    added = [r for r in results if keep(r)] + unchecked
     not_local = [r for r in results if not keep(r)]
 
     lines = [

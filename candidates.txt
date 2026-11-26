@@ -3920,3 +3920,543 @@ Northern Commerce
 Veterinary Purchasing
 Kobalt
 RedNucleus
+
+# --- Employers that posted roles matching your search in Ontario / remote Canada / remote worldwide
+#     on Jobright's public new-grad software list (Aug 2024 - Nov 2026, open and closed jobs) ---
+[uOttawa
+ACF Associates Inc. @ acfassociates.ca
+ADGA Group @ adga.ca
+Affirm @ affirm.com
+AgileGrid Solutions @ agilegridsolution.com
+Altera Digital Health @ alterahealth.com
+Alterna Savings @ alterna.ca
+AMD @ amd.com
+Applied Systems @ www1.appliedsystems.com
+Applied Systems Canada @ policyworks.com
+Apryse @ apryse.com
+ATS Corporation @ atsautomation.com
+Bain & Company @ bain.com
+Bank of Canada @ bankofcanada.ca
+Barracuda @ barracuda.com
+BeaconFire Solution Inc. @ beaconfiresolution.com
+Best Job Tool @ bestjobtool.com
+BMO Capital Markets @ capitalmarkets.bmo.com
+Brim Financial @ brimfinancial.com
+BrokerLink @ brokerlink.ca
+Bullet Trade Services @ bullettradeservices.com
+Buttcon @ buttcon.com
+Calian Group @ calian.com
+Canada Mortgage and Housing Corporation (CMHC) Société canadienne d'hypothèques et de logement(SCHL) @ cmhc.ca
+Canadian Bank Note Company, Limited @ cbnco.com
+Canadian Council of Motor Transport Administrators (CCMTA) @ ccmta.ca
+Canny @ canny.io
+Canon Medical Informatics @ vitalimages.com
+CARFAX
+CenterLine (Windsor) Limited @ cntrline.com
+Chemelex
+Clariti @ claritisoftware.com
+Clearway - Vacant Property Security & Services @ clearway.co.uk
+CNN @ cnn.com
+Common Wealth Retirement @ commonwealthretirement.com
+CPOS @ cpos.com
+CRH Canada @ crhcanada.com
+Data Front @ datafront.com
+Dell Technologies @ delltechnologies.com
+Descartes Systems Group @ descartes.com
+DLL @ dllgroup.com
+DualEntry @ dualentry.com
+DV Trading LLC @ dvtrading.co
+E&M Global Travel Services Canada Inc. @ emtravel.ca
+EarthDaily @ earthdaily.com
+eBay Ventures @ ebayinc.com
+ECA Tech Inc. @ designtorontoweb.ca
+Emco Corporation: Plumbing, HVAC, Waterworks, Industrial, Irrigation, Fire Protection @ emco.ca
+Empire Life @ empire.ca
+EnIn Systems @ eninsystems.com
+Eventbase @ eventbase.com
+Everis @ everis.ai
+Evertz @ evertz.com
+Faculties Online @ facultiesonline.com
+FDM Group @ fdmgroup.com
+First American @ firstam.com
+Fiscal AI @ stratosphere.io
+Fitch Group, Inc. @ fitch.group
+Fitch Ratings @ fitchratings.com
+Floqer @ floqer.com
+Ford Motor Company @ ford.com
+Ford Pro @ fordpro.com
+Fortinet @ fortinet.com
+Galent @ galent.com
+Gateway Services Inc. @ gatewayservicesinc.com
+Gemini Group @ csigemini.com
+General Dynamics Information Technology @ gdit.com
+General Dynamics Land Systems–Canada @ gdlscanada.com
+General Dynamics Mission Systems–Canada @ gdmissionsystems.ca
+Google
+Grafana Labs @ grafana.com
+Guidewire Software @ guidewire.com
+Harmony AI (tryharmony.ai) @ tryharmony.ai
+Harris Computer @ harriscomputer.com
+Henry's Holding Inc.
+House of Commons of Canada Chambre des communes du Canada @ ourcommons.ca
+Hybrid Financial Ltd. @ hybridfinancial.com
+Identity Digital Inc. @ identity.digital
+Imagine Everything @ imagineeverything.com
+Infisical @ infisical.com
+Innovate Tech IT LLC @ innovatetechit.com
+Intellicastle Sales & Marketing
+Isaac Operations @ isaacteam.com
+Ivey Business School Executive Education @ ivey.uwo.ca
+IXL Learning @ ixl.com
+Justworks @ justworks.com
+Kanguru Digital @ kanguru.ca
+Kantar @ kantar.com
+KEV Group @ kevgroup.com
+Kongsberg Geospatial @ kongsberggeospatial.com
+Kraun Electric Inc. @ kraun.ca
+L3Harris Technologies @ l3harris.com
+LexisNexis Risk Solutions @ risk.lexisnexis.com
+Liburdi Group of Companies @ liburdi.com
+Lime @ li.me
+Loombotic
+Lush Fresh Handmade Cosmetics North America @ lush.com
+Lyft @ lyft.com
+MAD Elevator Inc @ madelevator.com
+Magnet Forensics @ magnetforensics.com
+MakeOS @ getmakeos.com
+McAfee @ mcafee.com
+McGraw Hill @ mheducation.com
+Method CRM @ method.me
+Microchip Technology Inc. @ microchip.com
+Miraterra Technologies Corporation @ miraterrasoil.com
+MissionPerform
+Modall @ modall.ca
+Momentous @ momentous.com
+Motorola Solutions @ motorolasolutions.com
+Mozilla @ mozilla.org
+Multi-Health Systems Inc. (MHS) @ mhs.com
+Multiview Financial Software @ multiviewcorp.com
+Municipal Property Assessment Corporation @ mpac.ca
+NetNow Inc. @ netnow.io
+Netrolynx AI @ netrolynx.ai
+NetSuite @ netsuite.com
+News Corp @ newscorp.com
+Nidec Motor Corporation @ acim.nidec.com
+Octacom @ octacom.ca
+OLG @ olg.ca
+Optum @ optum.com
+Oracle @ oracle.com
+Origence @ origence.com
+Orvix Engineering @ orvixengr.com
+Owl Brokers @ owlbrokers.com
+OxProx @ oxprox.org
+Peripheral Labs @ peripheral.so
+Phreesia @ phreesia.com
+Pinterest @ pinterest.com
+Pinterest Engineering @ pinterestcareers.com
+Pleora Technologies @ pleora.com
+Point @ point.com
+Prolucid Technologies @ prolucid.ca
+Proof @ proofserve.com
+QHR Technologies @ qhrtechnologies.com
+Qualcomm @ qualcomm.com
+Ravenwake @ ravenwakegames.com
+Raytheon @ bbn.com
+Redwood Software @ redwood.com
+Rewind @ rewind.com
+Ribbon Communications @ ribboncommunications.com
+RideCo On-Demand Transit @ rideco.com
+Robbins-Gioia @ teamrg.com
+Robinhood @ robinhood.com
+samdesk @ samdesk.io
+Scalence L.L.C. @ scalence.com
+Scotlynn @ scotlynn.com
+SDFX Studios @ sdfxstudios.com
+Second Harvest @ secondharvest.ca
+Serco @ serco.com
+ServiceTitan @ servicetitan.com
+Siemens Healthineers @ siemens-healthineers.com
+SmartVerify @ smartverify.ai
+SoftServe @ softserveinc.com
+SPC Student Price Card @ spccard.ca
+SPX Technologies
+SRC CAN
+Strello Health @ strello.health
+Stripe @ stripe.com
+symplistic.ai @ symplistic.ai
+Tangam Systems @ tangamsystems.com
+TAO Solutions Inc. @ taosolutions.ca
+Tech Economy @ techeconomy.net
+TekStaff IT Solutions @ tekstaff.ca
+Texas Instruments @ ti.com
+The Citco Group Limited @ citco.com
+The Home Depot Canada
+Thunderbird @ thunderbird.net
+Tigercat Industries @ tigercat.com
+Toast @ pos.toasttab.com
+TrendAI @ trendmicro.com
+Turner Fleischer @ turnerfleischer.com
+Uber Advertising @ uber.com
+VersaFile (An RKO Company) @ versafile.com
+Warner Music Group @ wmg.com
+Wavelo @ wavelo.com
+WDI Wise Device Inc. @ wdidevice.com
+WellStar International Trading Limited @ erp.wellstartrading.com
+Wolf Advanced Technology @ wolfadvancedtechnology.com
+Xennial @ xennial.com
+Xennial Innovations Inc. @ xennial.com
+Xplor Technologies @ xplortechnologies.com
+Xtract One Technologies @ xtractone.com
+YNCU @ yncu.com
+yohrs.co.uk @ yohrs.co.uk
+
+# --- Employers that have posted roles matching your search in Ontario / remote Canada / remote
+#     worldwide (found by search agents across job sites and public job lists, Nov 2026).
+#     ! = verified job board, always added ---
+ashby:0g!  # 0G Labs
+ashby:1password!  # 1Password
+ashby:3y-health!  # 3Y Health
+ashby:alan!  # Alan
+ashby:bree!  # Bree
+ashby:cambio!  # Cambio AI
+ashby:camunda!  # Camunda
+ashby:centreforeffectivealtruism!  # Centre for Effective Altruism
+ashby:chromatic!  # Chromatic
+ashby:cohere!  # Cohere (AI; existing list only has ambiguous "Cohere Technologies")
+ashby:confluent!  # Confluent
+ashby:decodahealth!  # Decoda Health
+ashby:Dominion%20Dynamics!  # Dominion Dynamics
+ashby:doppel!  # Doppel
+ashby:facilityos!  # FacilityOS
+ashby:finch!  # Finch
+ashby:firecrawl!  # Firecrawl
+ashby:flutterflow!  # FlutterFlow
+ashby:folio!  # Folio
+ashby:futurefitai!  # FutureFit AI
+ashby:ideogram!  # Ideogram
+ashby:improbable!  # Improbable
+ashby:injective!  # Injective Labs
+ashby:intellistack!  # Intellistack
+ashby:Jerry!  # Jerry
+ashby:keplar!  # Keplar
+ashby:keycard-labs!  # Keycard
+ashby:lazer!  # Lazer
+ashby:lightspeedhq!  # Lightspeed
+ashby:magical!  # Magical
+ashby:maintainx!  # MaintainX
+ashby:maxima!  # Maxima
+ashby:method-crm!  # Method Integration Inc.
+ashby:micromart!  # Micromart
+ashby:mycroft!  # Mycroft
+ashby:nerdwallet!  # NerdWallet (Canada)
+ashby:nexxa!  # Nexxa
+ashby:opslevel!  # OpsLevel
+ashby:optimum!  # Optimum
+ashby:partisiablockchain!  # Partisia Blockchain
+ashby:patlytics!  # Patlytics
+ashby:polaranalytics!  # Polar Analytics
+ashby:Provision%20Software%20Corporation!  # Provision Software
+ashby:reacher!  # Reacher
+ashby:reteam!  # Reteam
+ashby:revic!  # Revic
+ashby:rewind!  # Rewind
+ashby:Rose%20Rocket!  # Roserocket
+ashby:salesjack!  # Salesjack
+ashby:saris-ai!  # Saris Ai
+ashby:secoda!  # Secoda
+ashby:sensor-tower!  # Sensor Tower
+ashby:spade!  # Spade
+ashby:spellbook.com!  # Spellbook
+ashby:stedi!  # Stedi
+ashby:stratum-ai!  # Stratum AI
+ashby:supabase!  # Supabase
+ashby:tailor!  # Tailor
+ashby:tailwind!  # Tailwind
+ashby:tiny-health!  # Tiny Health
+ashby:top-hat!  # Top Hat
+ashby:turnkey!  # Turnkey
+ashby:vanta!  # Vanta
+ashby:vantageanalytics!  # Vantage Analytics (distinct slug from existing ashby:vantage)
+ashby:vasco!  # Vasco
+ashby:voldex!  # Voldex Games
+ashby:whippy!  # Whippy
+ashby:workwhilejobs!  # WorkWhile
+ashby:wormholelabs!  # Wormhole Labs
+ashby:wynd-labs!  # Wynd Labs
+ashby:yobi!  # Yobi
+bamboohr:cira!  # CIRA (Canadian Internet Registration Authority)
+bamboohr:clearwaygroup!  # Clearway Group of Companies
+bamboohr:gocognition!  # Cognition+
+bamboohr:eventconnect!  # EventConnect
+bamboohr:gradientmsp!  # Gradient MSP
+bamboohr:kraunelectric!  # Kraun Electric
+bamboohr:naryant!  # Naryant
+bamboohr:opensourceintegrators!  # Open Source Integrators
+greenhouse:7shifts!  # 7shifts
+greenhouse:abnormalsecurity!  # Abnormal Security
+greenhouse:affirm!  # Affirm
+greenhouse:afresh!  # Afresh
+greenhouse:alteradigitalhealth!  # Altera Digital Health
+greenhouse:bitgo!  # BitGo
+greenhouse:block!  # Block
+greenhouse:canonicaljobs!  # Canonical
+greenhouse:carta!  # Carta
+greenhouse:earlytalentcerebras!  # Cerebras (early talent)
+greenhouse:clickhouse!  # ClickHouse
+greenhouse:coinbase!  # Coinbase
+greenhouse:coursera!  # Coursera
+greenhouse:cribl!  # Cribl
+greenhouse:cybrid!  # Cybrid
+greenhouse:d2l!  # D2L
+greenhouse:databricks!  # DataBricks
+greenhouse:dialoguehealthtechnologiesinc!  # Dialogue Health Technologies
+greenhouse:dialpad!  # Dialpad
+greenhouse:doordashcanada!  # DoorDash
+greenhouse:dropbox!  # Dropbox
+greenhouse:elastic!  # Elastic
+greenhouse:faire!  # Faire
+greenhouse:fivetran!  # Fivetran
+greenhouse:formaaiinc!  # Forma.ai
+greenhouse:fortra!  # Fortra
+greenhouse:gitlab!  # GitLab
+greenhouse:grafanalabs!  # Grafana Labs
+greenhouse:grammarly!  # Grammarly
+greenhouse:hightouch!  # Hightouch
+greenhouse:honeycomb!  # Honeycomb.io
+greenhouse:instacart!  # Instacart
+greenhouse:ixllearning!  # IXL Learning
+greenhouse:justworks!  # Justworks
+greenhouse:keplergroup!  # Kepler Group
+greenhouse:lightspeedhq!  # Lightspeed
+greenhouse:lyft!  # Lyft
+greenhouse:marqeta!  # Marqeta
+greenhouse:gomotive!  # Motive
+greenhouse:mozilla!  # Mozilla
+greenhouse:netlifyexplorecareers!  # Netlify
+greenhouse:okta!  # Okta
+greenhouse:openphone!  # OpenPhone
+greenhouse:opentable!  # OpenTable
+greenhouse:pinterest!  # Pinterest
+greenhouse:practicebetter!  # Practice Better
+greenhouse:reddit!  # Reddit
+greenhouse:ripple!  # Ripple
+greenhouse:robinhood!  # Robinhood
+greenhouse:rockstargames!  # Rockstar Games
+greenhouse:safariai!  # Safari AI
+greenhouse:samsara!  # Samsara
+greenhouse:conductor-by-sensei-labs!  # Sensei Labs (Conductor)
+greenhouse:sentry!  # Sentry
+greenhouse:sharegateen!  # ShareGate (Workleap)
+greenhouse:stackadapt!  # StackAdapt
+greenhouse:stripe!  # Stripe
+greenhouse:surveymonkey!  # SurveyMonkey
+greenhouse:tailscale!  # Tailscale
+greenhouse:tenstorrent!  # Tenstorrent
+greenhouse:thanx!  # Thanx
+greenhouse:toast!  # Toast
+greenhouse:twilio!  # Twilio
+greenhouse:upshop!  # Upshop
+greenhouse:varicent!  # Varicent
+greenhouse:versaterm!  # Versaterm
+greenhouse:warp!  # Warp
+greenhouse:zoominfo!  # ZoomInfo
+greenhouse:zynga!  # Zynga
+greenhouse:zyngacareers!  # Zynga
+lever:1password!  # 1Password
+lever:agentnoon!  # Agentnoon
+lever:air-tek!  # Air-tek
+lever:aviyatech!  # Aviya Aerospace Systems
+lever:betr!  # Betr
+lever:Betstamp!  # Betstamp
+lever:blanc-labs!  # Blanc Labs
+lever:bounteous!  # Bounteous
+lever:brafton!  # Brafton
+lever:collectivei!  # Collective[i]
+lever:devcycle!  # DevCycle
+lever:floqast!  # FloQast
+lever:flynncompanies!  # Flynn Group of Companies
+lever:henon!  # Henon
+lever:intelliware!  # Intelliware
+lever:magnetforensics!  # Magnet Forensics
+lever:mechanicalorchard!  # Mechanical Orchard
+lever:metabase!  # Metabase
+lever:netlight!  # Netlight
+lever:netomi!  # Netomi
+lever:newton!  # Newton Crypto
+lever:NoibuTechnologies!  # Noibu
+lever:PocketHealth!  # PocketHealth
+lever:pointclickcare!  # PointClickCare
+lever:policyme!  # PolicyMe
+lever:verkada!  # Ramp
+lever:replicant!  # Replicant
+lever:shakudo!  # Shakudo
+lever:shyftlabs!  # ShyftLabs
+lever:smiledigitalhealth!  # Smile Digital Health
+lever:spotify!  # Spotify
+lever:syntronic!  # Syntronic
+lever:textnow!  # TextNow
+lever:varicent!  # Varicent
+lever:waabi!  # Waabi
+lever:waveapps!  # Wave HQ
+lever:Yassir!  # Yassir
+rippling:analyticsmart!  # Analyticsmart Consulting Inc.
+rippling:asics-apps!  # ASICS Apps (Race Roster)
+rippling:highpath-careers!  # HighPath
+rippling:opendoor!  # Opendoor
+rippling:rentsync_careers!  # Rentsync
+rippling:sibros-technologies!  # Sibros
+smartrecruiters:ASLConsulting!  # ASL Consulting
+smartrecruiters:CSIConsulting2!  # CSI Consulting
+smartrecruiters:TheAdaptavistGroup!  # The Adaptavist Group
+workable:acuity-insights!  # Acuity Insights
+workable:capgemini-insurance!  # Capgemini
+workable:export-development-canada!  # Export Development Canada
+workable:fiq!  # Fulfillment IQ
+workable:prolucid-technologies!  # Prolucid Technologies
+workable:tjm-labs-1!  # TJM Labs
+workday:ag.wd3.myworkdayjobs.com/Airbus!  # Airbus (Skywise Canada)
+workday:allstate.wd5.myworkdayjobs.com/allstate_careers!  # Allstate Canada
+workday:altusgroup.wd3.myworkdayjobs.com/AltusGroup!  # Altus Group
+workday:aviva.wd1.myworkdayjobs.com/External!  # Aviva
+workday:broadcom.wd1.myworkdayjobs.com/External_Career!  # Broadcom
+workday:candescent.wd501.myworkdayjobs.com/Hiring!  # Candescent
+workday:carrier.wd5.myworkdayjobs.com/jobs!  # Carrier
+workday:dell.wd1.myworkdayjobs.com/External!  # Dell Technologies
+workday:fina.wd103.myworkdayjobs.com/deloitterecrute!  # Deloitte
+workday:draftkings.wd1.myworkdayjobs.com/DraftKings!  # DraftKings
+workday:dynata.wd1.myworkdayjobs.com/careers!  # Dynata
+workday:equifax.wd5.myworkdayjobs.com/External!  # Equifax
+workday:evercommerce.wd1.myworkdayjobs.com/evercommerce_careers!  # EverCommerce
+workday:fico.wd1.myworkdayjobs.com/External!  # FICO
+workday:fil.wd3.myworkdayjobs.com/fidelitycanada!  # Fidelity Canada
+workday:firstam.wd1.myworkdayjobs.com/firstamericancareers!  # First American
+workday:gadventures.wd3.myworkdayjobs.com/GAdventures!  # G Adventures
+workday:gdit.wd5.myworkdayjobs.com/external_career_site!  # GDIT
+workday:genesys.wd1.myworkdayjobs.com/2_genesys_jobs!  # Genesys
+workday:gianttiger.wd3.myworkdayjobs.com/GiantTiger!  # Giant Tiger
+workday:goto.wd5.myworkdayjobs.com/GoToCareers!  # GoTo
+workday:guidewire.wd5.myworkdayjobs.com/external!  # Guidewire
+workday:harriscomputer.wd3.myworkdayjobs.com/1!  # Harris Computer
+workday:hpe.wd5.myworkdayjobs.com/acjobsite!  # HPE (University)
+workday:hpe.wd5.myworkdayjobs.com/Jobsathpe!  # HPE (University)
+workday:kainos.wd3.myworkdayjobs.com/Kainos!  # Kainos
+workday:kyndryl.wd5.myworkdayjobs.com/KyndrylProfessionalCareers!  # Kyndryl
+workday:relx.wd3.myworkdayjobs.com/RiskSolutions!  # LexisNexis Risk Solutions
+workday:livenation.wd503.myworkdayjobs.com/LNExternalSite!  # Live Nation
+workday:lseg.wd3.myworkdayjobs.com/Careers!  # LSEG (London Stock Exchange Group)
+workday:magna.wd3.myworkdayjobs.com/Magna!  # Magna
+workday:mcafee.wd1.myworkdayjobs.com/external!  # McAfee
+workday:microchiphr.wd5.myworkdayjobs.com/External!  # Microchip Technology
+workday:ncr.wd1.myworkdayjobs.com/ext_us!  # NCR Voyix
+workday:nelnet.wd1.myworkdayjobs.com/MyNelnet!  # Nelnet
+workday:orthofix.wd1.myworkdayjobs.com/External_Careers!  # Orthofix
+workday:resmed.wd3.myworkdayjobs.com/ResMed_External_Careers!  # ResMed
+workday:quickenloans.wd5.myworkdayjobs.com/rocket_careers!  # Rocket Companies
+workday:spgi.wd5.myworkdayjobs.com/SPGI_Careers!  # S&P Global
+workday:salesforce.wd12.myworkdayjobs.com/External_Career_Site!  # Salesforce
+workday:servicetitan.wd1.myworkdayjobs.com/ServiceTitan!  # ServiceTitan
+workday:sunlife.wd3.myworkdayjobs.com/experienced!  # Sun Life
+workday:synechron.wd1.myworkdayjobs.com/SynechronCareers!  # Synechron
+workday:cigna.wd5.myworkdayjobs.com/cignacareers!  # The Cigna Group
+workday:usbank.wd1.myworkdayjobs.com/US_Bank_Careers!  # U.S. Bank
+workday:unitytech.wd1.myworkdayjobs.com/unity!  # Unity Technologies
+workday:vertexinc.wd1.myworkdayjobs.com/VertexInc!  # Vertex Inc.
+workday:walmart.wd5.myworkdayjobs.com/WalmartExternal!  # Walmart
+workday:wmg.wd1.myworkdayjobs.com/WMGGLOBAL!  # Warner Music Group
+workday:wolseley.wd3.myworkdayjobs.com/External!  # Wolseley Canada
+workday:workday.wd5.myworkdayjobs.com/Workday!  # Workday
+
+# --- Same, but no supported job board link was found: the finder tries likely addresses ---
+20four7VA
+44degNorth Technologies Incorporated
+Align Technology
+Babcock Canada Inc.
+Babcock International Group
+Bentley Systems
+Blackstone Energy
+BluWave-ai
+Bright Data
+Bursting Silver
+BUSKRO Ltd
+Canada Royal Milk ULC
+Carmel Vision Inc
+Clubhouse Golf
+Coalition
+Company 3
+Continual Energy Inc.
+Cybernova Technologies Inc
+DataStealth
+DeepReel
+Dilico Anishinabek Family Care
+DNAstack
+Doppel Farmaceutici
+Dynamic Connections
+EllisDon
+Empowerment Technologies Inc.
+FGF Brands
+Finastra-Nelnet
+Five9
+Fortive
+Fynbosys
+Gallea Ai
+Gaya AI
+Goldman Sachs
+Hatch
+Headstarter
+High Tech Genesis
+Holman
+HUB International
+InstaLILY AI
+ITGoals
+Ivey Business School Foundation
+J.D. Power
+Kai Cao Inc
+Lattice
+Lumentum Operations
+Lush Cosmetics
+LyricFind
+Mate Gauge
+mecka
+Meitou Inc.
+Mimi Dental Clinic
+MixRank
+MM Global Solutions Consulting
+Mr. Lawnmower Landscaping Services
+NAVBLUE
+Notary Pro Canada
+NotaryPro
+NTT Data
+onsemi
+Our Media
+P&P Optica
+Parallelz
+Peoples Group
+Phoenix
+PRI Engineering
+Queen's University
+RealDecoy
+Relevantz Technology Services
+RhythmQ
+Ritchie Bros.
+Sciemetric Instruments
+Snowed In Studios Inc.
+SOFTLINE TECHNOLOGY
+Sonova
+Sur La Table
+Sync.com
+Systems Interactive Inc.
+Teranet Inc.
+The Code Crackers Inc.
+Tripleview Technologies Inc
+Univerus
+Urban Customz
+VARITE INC
+Viggle
+Wanderlog
+Wayfair
+WildBrain
+WildBrain CPLG
+Wonderbrands
+WSP in Canada
+Xperteez Technology
+YuJa

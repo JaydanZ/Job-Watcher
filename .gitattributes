@@ -1,0 +1,2 @@
+# Keep Windows line endings in the setup scripts
+*.bat -text

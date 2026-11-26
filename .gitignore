@@ -1,0 +1,7 @@
+# Files created on your own computer by the Workday checks
+ntfy_topic.txt
+sync_url.txt
+workday_seen.json
+workday_jobs_found.csv
+workday_log*.txt
+__pycache__/

@@ -10,6 +10,19 @@ notification when a matching role is posted.
 3. In **Settings → Actions → General**, give workflows **Read and write** permissions.
 4. Run **Job watcher** once from the **Actions** tab. After that, it runs on its schedule.
 
+## Workday checks (on your Windows computer)
+
+Workday refuses requests from GitHub, so Workday companies are checked from your PC.
+
+1. Install Python from python.org and tick **Add python.exe to PATH**.
+2. Download this repo (**Code → Download ZIP**) and extract it somewhere permanent.
+3. Double-click `windows\setup_workday.bat` and paste your ntfy topic when asked.
+
+It checks every 30 minutes while you're signed in, using the latest settings and
+company list from this repo. `windows\run_workday_now.bat` runs a check on demand;
+`windows\remove_workday_task.bat` stops it. See `workday_log.txt` for what each
+check did.
+
 ## Workflows
 
 | Workflow | What it does |
